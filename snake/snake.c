@@ -1,13 +1,12 @@
 // momefilo Desing
-#include "pico/stdlib.h"
+#include "../include/libs/ili9341/ili9341.h"
+#include "../include/ranking.h"
+#include "../include/buttons.h"
+#include "../include/melodys.h"
+#include "graphics/snake15x15.h"
+#include "snake.h"
 #include "hardware/adc.h"
 #include <stdlib.h>
-#include "../graphics/snake15x15.h"
-#include "../ranking.h"
-#include "../buttons.h"
-#include "../sound.h"
-#include "../ILI9341.h"
-#include "../snake.h"
 
 #define SNAKE_Left	0
 #define SNAKE_Right	1
@@ -67,7 +66,7 @@ void snake_init(uint8_t progId){
 	buttons_init();
 	ili9341_init();
 	setOrientation(VERTICAL);
-	sound_init();
+	melodys_init();
 	ranking_init(progId);
 	adc_init();
 	Tail = (struct POS*)malloc(sizeof(struct POS));
@@ -106,12 +105,12 @@ bool snake_end(){
 	paint_Highscore();
 	if(ranking > 0){
 		paint_Rang(ranking);
-		if(ranking < 2)Sound_play(SOUND_YEH);
-		else Sound_play(SOUND_YUP);
+		if(ranking < 2)melodys_play(SOUND_YEH);
+		else melodys_play(SOUND_YUP);
 	}
 	else{
 		paint_Score(Snake_Score);
-		Sound_play(SOUND_BAH);
+		melodys_play(SOUND_BAH);
 	}
 	while( (! gpio_get(BUTTON_R)) && (! gpio_get(BUTTON_L) && \
 		(! gpio_get(BUTTON_U)) && (! gpio_get(BUTTON_D))) ){}
@@ -161,7 +160,7 @@ bool snake_move(){
 
 	//set end of tail
 	if(has_eat){
-		Sound_play(SOUND_FALL);
+		melodys_play(SOUND_FALL);
 		Tail = realloc(Tail, (Tail_cnt + 1) * sizeof(struct POS));
 		Tail[Tail_cnt] = Act_pos;
 		Tail_cnt++;

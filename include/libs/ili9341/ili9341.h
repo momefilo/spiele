@@ -1,6 +1,6 @@
 // momefilo Desing
-#ifndef ILI9341_h
-#define ILI9341_h 1
+#ifndef momefilo_ili9341_h
+#define momefilo_ili9341_h 1
 
 #include "pico/stdlib.h"
 
@@ -10,7 +10,7 @@
 /* inits the display */
 void ili9341_init();
 
-/* Setzt die Orientierung, Parameter sind HORIZONTAL und VERTICAL */
+/* Setzt die Orientierung, Parameter ori sind HORIZONTAL und VERTICAL */
 void setOrientation(uint8_t ori);
 
 /* 565-Bit RGB-Farbwert
@@ -52,7 +52,7 @@ void writeText12x12(uint16_t *pos, char *text, int len, bool sel, bool matrix);
  * area[12] position x.end, area[3] position y.end */
 void paintRect(uint16_t *area, uint16_t color);
 
-/* zeichnet die 4bit-farbcodierten (RRRRGGGGBBBB) Daten in den
+/* zeichnet die 565bit-farbcodierten Daten in den
  * durch area bezeichneten Bereich
  * area[0]: position x.start, area[1] position y.start
  * area[12] position x.end, area[3] position y.end

@@ -2,9 +2,9 @@
 #include "hardware/spi.h"
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
-#include "../graphics/font16x16.h"
-#include "../graphics/font12x12.h"
-#include "../ILI9341.h"
+#include "../fonts/font16x16.h"
+#include "../fonts/font12x12.h"
+#include "ili9341.h"
 
 #define SPI_PORT spi1
 #define PIN_SCK	10

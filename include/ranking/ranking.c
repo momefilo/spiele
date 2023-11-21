@@ -1,58 +1,13 @@
 // momefilo Desing
-#include "hardware/flash.h"
-#include "hardware/sync.h"
-#include "../ILI9341.h"
-#include "../graphics/digit15x20.h"
-#include "../graphics/pigit15x20.h"
-#include "../graphics/rang25x25.h"
+#include "../libs/flash/flash.h"
+#include "../libs/ili9341/ili9341.h"
+#include "digits/digit15x20.h"
+#include "digits/pigit15x20.h"
+#include "digits/rang25x25.h"
 #include "../ranking.h"
 
-uint32_t Flash_Offset;
-uint8_t *Flash_Content;
-uint8_t Pagecount;
 uint32_t Highscore[HIGHSCORECOUNT];
 
-
-/* Prueft ob noch 256byte Bloecke frei sind und speicher Highscore, wenn
- * keine Bloecke frei sind wird der 4096byte Block gelöscht und in den ersten 256byte
- * Block geschrieben */
-void write_Flash(){
-	uint32_t flags = save_and_disable_interrupts();
-	uint8_t buf[FLASH_PAGE_SIZE];
-	if(Pagecount > 15){
-		flash_range_erase(Flash_Offset, FLASH_SECTOR_SIZE);
-		Pagecount = 0;
-	}
-	buf[0] = 0xAB;
-	buf[1] = 0xBA;
-	uint8_t bufcount = 0;
-	for(int i=0; i<HIGHSCORECOUNT; i++){
-		uint32_t mask = 0xFF000000;
-		for(int k=0; k<4; k++){
-			buf[2 + bufcount] = (Highscore[i] & mask) >> (24 - 8*k);
-			mask = mask >> 8;
-			bufcount++;
-		}
-	}
-	flash_range_program(Flash_Offset + Pagecount * FLASH_PAGE_SIZE, buf, FLASH_PAGE_SIZE);
-	restore_interrupts(flags);
-	Pagecount++;
-}
-
-/* Liest Highscore und aus dem aktuellen 256byte Block */
-void get_Flash(){
-	int addr;
-	if(Pagecount < 1){
-		addr = 15 * 256;
-	}else{ addr = (Pagecount - 1) * 256;}
-	uint8_t bufcount = 0;
-	for(int i=0; i<HIGHSCORECOUNT; i++){
-		for(int k=0; k<4; k++){
-			Highscore[i] |= (Flash_Content[addr + 2 + bufcount]) << (24 - 8*k);
-			bufcount++;
-		}
-	}
-}
 
 /* Prueft ob der score ein Highscore ist und gibt die Position dessen zurueck und
  * speicher den Highscore im Flash
@@ -64,7 +19,7 @@ uint8_t set_Score(uint32_t score){
 		else if(score > Highscore[i]){
 			for(int k=0; k<i; k++) Highscore[k] = Highscore[k + 1];
 			Highscore[i] = score;
-			write_Flash();
+			flash_setDataRow(0, (HIGHSCORECOUNT - 1), Highscore);
 			return HIGHSCORECOUNT - i;
 		}
 	}
@@ -95,27 +50,13 @@ void clear_Score(){
 }
 
 void ranking_init(uint8_t progId){
-	Flash_Offset = (PICO_FLASH_SIZE_BYTES - (progId + 1) * FLASH_SECTOR_SIZE);
-	Flash_Content = (uint8_t *) (XIP_BASE + Flash_Offset);
-	for(uint32_t i=0; i<HIGHSCORECOUNT; i++){ Highscore[i] = 0; }
-	bool found = false;
-	Pagecount = 15;
+	flash_init(progId);
+	uint32_t *highscore = flash_getData();
+	for(uint8_t i=0; i<HIGHSCORECOUNT; i++)Highscore[i] = highscore[i];
 
-	for(int pc=Pagecount; pc>=0; pc--){
-			uint16_t addr = pc * 256;
-			if( (Flash_Content[addr] == 0xAB) && \
-							(Flash_Content[addr+1] == 0xBA)){
-				found = true;
-				Pagecount = pc + 1;
-				get_Flash();
-				return;
-
-		}
-	}
-	if(! found) Pagecount = 16;
 }
 
-//TODO
+//not so noce
 void paint_Menu(){
 	//x0=41;y0=36;x1=200 ;y1=233
 	uint16_t area[] = {41,36,51,233};
@@ -134,7 +75,7 @@ void paint_Menu(){
 	writeText16x16(tpos, "zurueck", 7, false, false);
 }
 
-//TODO
+//not so nice
 void paint_Rang(uint32_t rang){
 	uint16_t pos[] = { 75, 42, 75+6*15, 72};
 	paintRect(pos, 0xF800);
@@ -245,6 +186,7 @@ void paint_Score(uint32_t score){
 	}
 }
 
+//is ok
 void paint_Highscore(){
 	uint8_t mydigits[HIGHSCORECOUNT][6]; // zur Umrechnung in Ziffern
 	uint8_t digits[HIGHSCORECOUNT * 6]; // die paint-Schleifen verarbeiten die Digits in einer Kolonne

@@ -8,11 +8,14 @@ add_executable(spiele
 spiele.c
 )
 
+
+add_subdirectory(./snake)
+add_subdirectory(./tetris)
+add_subdirectory(./include/libs/ili9341)
+add_subdirectory(./include/libs/flash)
+add_subdirectory(./include/libs/sound)
 add_subdirectory(./include/buttons)
-add_subdirectory(./include/tetris)
-add_subdirectory(./include/ILI9341)
-add_subdirectory(./include/sound)
-add_subdirectory(./include/snake)
+add_subdirectory(./include/melodys)
 add_subdirectory(./include/ranking)
 
 
@@ -20,9 +23,11 @@ pico_add_extra_outputs(spiele)
 target_link_libraries(spiele
 		snake
 		tetris
-		ranking
-		pico_stdlib
 		buttons
-		ILI9341
+		ranking
+		melodys
+		ili9341
+		flash
 		sound
+		pico_stdlib
 		)

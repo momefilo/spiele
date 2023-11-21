@@ -66,6 +66,8 @@ uint8_t get_Direction();
 /* die Fallgeschwindigkeit */
 uint16_t get_Fallspeed();
 
-/* Die Figur kann nicht mehr fallen */
+/* Die Figur kann nicht mehr fallen. Der Parameter newGame wird benoetigt um zu kennzeichnen welche
+ * Funktion die Aufrufende ist. Die Hauptspielschleife in "spiele.c" darf bei gedruecktem taster
+ * nicht den returnwert aus der Spielschleife erhalten*/
 bool end_fall(bool newGame);
 #endif

@@ -1,11 +1,12 @@
+// momefilo Desing
+#include "../include/libs/ili9341/ili9341.h"
+#include "../include/melodys.h"
+#include "../include/buttons.h"
+#include "../include/ranking.h"
+#include "graphics/blocks15x15.h"
+#include "tetris.h"
 #include "hardware/adc.h"
 #include <stdlib.h>
-#include "../buttons.h"
-#include "../sound.h"
-#include "../ranking.h"
-#include "../ILI9341.h"
-#include "../graphics/blocks15x15.h"
-#include "../tetris.h"
 
 //Variablen
 struct  _fig Figuren[7], ActFigur;
@@ -31,7 +32,7 @@ void tetris_init(uint8_t progId){
 	buttons_init();
 	ili9341_init();
 	setOrientation(VERTICAL);
-	sound_init();
+	melodys_init();
 	ranking_init(progId);
 	clear_GameArea();
 	Score = 0;
@@ -216,7 +217,7 @@ void animate_Row(uint8_t zeile){
 		}
 		sleep_ms(5);
 	}
-	Sound_play(SOUND_ROW);
+	melodys_play(SOUND_ROW);
 }
 
 /* GameArea komplett neu zeichnen check_Rows-Hilfsfunktion */
@@ -530,12 +531,12 @@ bool new_Game(){
 	paint_Highscore();
 	if(ranking > 0){
 		paint_Rang(ranking);
-		if(ranking < 2)Sound_play(SOUND_YEH);
-		else Sound_play(SOUND_YUP);
+		if(ranking < 2)melodys_play(SOUND_YEH);
+		else melodys_play(SOUND_YUP);
 	}
 	else{
 		paint_Score(Score);
-		Sound_play(SOUND_BAH);
+		melodys_play(SOUND_BAH);
 	}
 	while( (! gpio_get(BUTTON_R)) && (! gpio_get(BUTTON_L) && \
 		(! gpio_get(BUTTON_U)) && (! gpio_get(BUTTON_D))) ){}
@@ -576,7 +577,7 @@ void inkrase_Fallspeed(){
 }
 
 bool end_fall(bool newGame){
-	Sound_play(SOUND_FALL);
+	melodys_play(SOUND_FALL);
 	set_ActFigur(); // speichern der position im Gamearea
 	uint32_t points = check_Rows(); // pruefen wieviele Zeilen komplett sind
 	if(points > 0){

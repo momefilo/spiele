@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "include/buttons.h"
-#include "include/ILI9341.h"
-#include "include/tetris.h"
-#include "include/snake.h"
+#include "include/libs/ili9341/ili9341.h"
+#include "tetris/tetris.h"
+#include "snake/snake.h"
 
 void paintEntry(){
 	uint16_t yend = 299;
