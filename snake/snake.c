@@ -95,8 +95,8 @@ void snake_reset(){
 }
 bool snake_end(){
 	bool ret;
-	uint8_t ranking = set_Score(Snake_Score);
-	paint_Highscore();
+	uint8_t ranking = set_Score(Snake_Score, false);
+	paint_Highscore(false);
 	if(ranking > 0){
 		paint_Rang(ranking);
 		if(ranking < 2)melodys_play(SOUND_YEH);

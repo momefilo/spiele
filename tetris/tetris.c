@@ -520,8 +520,8 @@ bool new_Game(){
 	bool ret = false;
 	Fallspeed = 400;
 	Movecounter = 0;
-	uint8_t ranking = set_Score(Score);
-	paint_Highscore();
+	uint8_t ranking = set_Score(Score, false);
+	paint_Highscore(false);
 	if(ranking > 0){
 		paint_Rang(ranking);
 		if(ranking < 2)melodys_play(SOUND_YEH);

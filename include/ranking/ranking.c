@@ -15,14 +15,27 @@ int get_Salz(){return flash_salzPlus();}
  * speicher den Highscore im Flash
  * ist der score nicht im Highscore wird 0 zurueckgegeben und nicht gespeichert
  */
-uint8_t set_Score(uint32_t score){
-	for(int i=HIGHSCORECOUNT - 1; i>=0; i--){
-//		if(score == Highscore[i]){ return HIGHSCORECOUNT - i;}
-		if(score > Highscore[i]){
-			for(int k=0; k<i; k++) Highscore[k] = Highscore[k + 1];
-			Highscore[i] = score;
-			flash_setDataRow(0, (HIGHSCORECOUNT - 1), Highscore);
-			return HIGHSCORECOUNT - i;
+uint8_t set_Score(uint32_t score, bool reverse){
+	if(reverse){
+		for(int i=0; i<HIGHSCORECOUNT; i++){
+	//		if(score == Highscore[i]){ return HIGHSCORECOUNT - i;}
+			if(score < Highscore[i] || Highscore[i] < 1){
+				for(int k=HIGHSCORECOUNT-1; k>i; k--) Highscore[k] = Highscore[k - 1];
+				Highscore[i] = score;
+				flash_setDataRow(0, (HIGHSCORECOUNT - 1), Highscore);
+				return i+1;
+			}
+		}
+	}
+	else{
+		for(int i=HIGHSCORECOUNT - 1; i>=0; i--){
+	//		if(score == Highscore[i]){ return HIGHSCORECOUNT - i;}
+			if(score > Highscore[i]){
+				for(int k=0; k<i; k++) Highscore[k] = Highscore[k + 1];
+				Highscore[i] = score;
+				flash_setDataRow(0, (HIGHSCORECOUNT - 1), Highscore);
+				return HIGHSCORECOUNT - i;
+			}
 		}
 	}
 	return 0;
@@ -190,13 +203,21 @@ void paint_Score(uint32_t score){
 }
 
 //is ok
-void paint_Highscore(){
+void paint_Highscore(bool reverse){
 	uint8_t mydigits[HIGHSCORECOUNT][6]; // zur Umrechnung in Ziffern
 	uint8_t digits[HIGHSCORECOUNT * 6]; // die paint-Schleifen verarbeiten die Digits in einer Kolonne
 	int count = 0;
-	for(int i=HIGHSCORECOUNT-1; i>=0; i--){ // digits mit Ziffern der Highscoreliste fuellen
-		get_Digits(Highscore[i], mydigits[i]);
-		for(int k=5; k>=0; k--){ digits[count] = mydigits[i][k]; count++; }
+	if(reverse){
+		for(int i=0; i<HIGHSCORECOUNT; i++){ // digits mit Ziffern der Highscoreliste fuellen
+			get_Digits(Highscore[i], mydigits[i]);
+			for(int k=5; k>=0; k--){ digits[count] = mydigits[i][k]; count++; }
+		}
+	}
+	else{
+		for(int i=HIGHSCORECOUNT-1; i>=0; i--){ // digits mit Ziffern der Highscoreliste fuellen
+			get_Digits(Highscore[i], mydigits[i]);
+			for(int k=5; k>=0; k--){ digits[count] = mydigits[i][k]; count++; }
+		}
 	}
 	uint16_t color1 = 0xFFF0;
 	uint16_t color2 = 0x0000;

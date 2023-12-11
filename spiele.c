@@ -3,7 +3,7 @@
 #include "pico/stdlib.h"
 #include "include/buttons.h"
 #include "include/libs/ili9341/ili9341.h"
-#include "include/libs/flash/flash.h"
+//#include "include/libs/flash/flash.h"
 #include "tetris/tetris.h"
 #include "snake/snake.h"
 #include "klotski/klotski.h"

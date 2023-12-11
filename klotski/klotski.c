@@ -1,15 +1,13 @@
 // momefilo Desing
 #include "../include/libs/ili9341/ili9341.h"
-#include "../include/libs/flash/flash.h"
+#include "../include/ranking.h"
 #include "../include/melodys.h"
 #include "../include/buttons.h"
 #include "hardware/flash.h"
 #include "hardware/sync.h"
 #include "klotski.h"
-
-#define MAXLEVEL 9
 #include <stdio.h>
-//	printf("KLOTSKI")
+#define MAXLEVEL 9
 
 uint8_t *Levelnames[] = {"nur 18 Zuege","nur 28 Zuege","nur 38 Zuege","nur 48 Zuege","nur 58 Zuege",
 	"nur 68 Zuege","nur 78 Zuege","nur 88 Zuege","nur 98 Zuege"};
@@ -32,8 +30,8 @@ void klotski_flashInit(){
 	K6_offset = K5_offset + K5_size * FLASH_PAGE_SIZE;
 	K7_offset = K6_offset + K6_size * FLASH_PAGE_SIZE;
 	PageSum = K0_size + K1_size + K2_size + K3_size +  K4_size + K5_size + K6_size + K7_size;
-	SectorSum = PageSum / 16 + 2;
-	if(SectorSum < 200) SectorSum = 200;
+	SectorSum = PageSum / 16 + 1;
+	SectorSum = (SectorSum / 16 + 1) * 16;
 	Klotz_FlashOffset = (PICO_FLASH_SIZE_BYTES - SectorSum * FLASH_SECTOR_SIZE)-2049;
 	Klotz_FlashContent = (uint8_t *) (XIP_BASE + Klotz_FlashOffset);
 }
@@ -473,41 +471,14 @@ bool play(){
 }
 
 void win(){
-	uint8_t rang = 0xFF;
-	for(uint8_t i=0; i<5; i++){
-		if(KlotskiScore[Level][i] > MoveCount){// && KlotskiScore[Level][i] < (1 << 31)){ //in Scoreliste
-			for(uint8_t k=4; k>i; k--) KlotskiScore[Level][k] = KlotskiScore[Level][k-1];
-			KlotskiScore[Level][i] = MoveCount;
-			rang = i;
-			break;
-		}
-	}
-	uint32_t buf[MAXLEVEL * 5];
-	uint8_t i = 0;
-	for(uint8_t k=0; k<MAXLEVEL; k++){
-		for(uint8_t l=0; l<5; l++){
-			buf[i] = KlotskiScore[k][l];
-			if(buf[i] < 1) buf[i] = (1 << 31);
-			i++;
-		}
-	}
-	flash_setDataRow(0, MAXLEVEL * 5 - 1, buf);
-	setBgColor(0xFFE0);
+	uint8_t rang = set_Score(MoveCount, true);
+	printf("Rang: %d\n", rang);
+	paint_Highscore(true);
+	paint_Rang(rang);
+	uint16_t pos[] = {17, 300};
+	setBgColor(0xFFF0);
 	setFgColor(0x0007);
-	clearScreen();
-	uint16_t y = 320 / (7);
-	uint16_t x = 20 ;
-	for(uint16_t i=1; i<6; i++){
-		uint16_t pos[] = {x, i*y-y/2};
-		char text[12];
-		sprintf(text, "Rang %d: %d",i, KlotskiScore[Level][i-1]);
-		writeText16x16(pos, text, 12, false, false);
-	}
-	uint16_t pos[] = {70, 300};
-	setBgColor(0x0007);
-	setFgColor(0xFFE0);
-	writeText16x16(pos, "Zurueck", 7, false, false);
-	bool sprung = false;
+	writeText16x16(pos, "touch Zurueck", 13, false, false);
 	while(1){
 		uint16_t *pixPoint = ili9341_getTouch();
 		while(pixPoint[0]<0xFFFF){
@@ -527,19 +498,8 @@ void klotski_init(uint8_t progId){
 	setOrientation(VERTICAL);
 	ili9341_touch_init();
 	melodys_init();
-	flash_init(progId);
 	klotski_flashInit();
-	uint32_t *buf = flash_getData();
-	uint8_t i = 0;
-	for(uint8_t k=0; k<MAXLEVEL; k++){
-		for(uint8_t l=0; l<5; l++){
-			KlotskiScore[k][l] = buf[i];
-			if(KlotskiScore[k][l] < 1) KlotskiScore[k][l] = (1 << 31);
-			i++;
-		}
-	}
 	while(1){
-		bool wining = false;
 		init_Areas();
 		MoveCount = 0;
 		LastItem = 0;
@@ -548,6 +508,7 @@ void klotski_init(uint8_t progId){
 		NewPoint[0] = 0;
 		NewPoint[1] = 0;
 		if(! paintMenu()) break;
+		ranking_init(progId+Level);
 		uint16_t area[] = {0, 0, 239, 319};
 		paintRect(area, 0x8410);
 		for(int i=0; i<15;i++){
@@ -555,8 +516,7 @@ void klotski_init(uint8_t progId){
 		}
 		paintBorder();
 		paintMovecount();
-		if(play()){ wining =true;}
-		if(wining) win();
+		if(play()) win();
 	}
 	uint16_t area[] = {0, 0, 239, 319};
 	paintRect(area, 0x0000);

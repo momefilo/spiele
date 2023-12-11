@@ -7,21 +7,33 @@
 int Salt;
 uint32_t Flash_Offset, Salz_Offset;
 uint8_t *Flash_Content, *Salz_Content, Salz_PageWerte[256];
-uint8_t Pagecount, SectorOffset = 202, Salz_Page, Salz_Byte;
+uint8_t Pagecount, SectorOffset = 34, Salz_Page, Salz_Byte;
 uint32_t Data[63];
 
+int flash_getSalz(){ return Salt; }
+void set_Salt(){
+	uint8_t salz = 0, wert = Salz_PageWerte[Salz_Byte];
+	if(wert > 0x7E) salz = 1;
+	else if(wert > 0x3E) salz = 2;
+	else if(wert > 0x1E) salz = 3;
+	else if(wert > 0x0E) salz = 4;
+	else if(wert > 0x06) salz = 5;
+	else if(wert > 0x02) salz = 6;
+	else if(wert > 0x00) salz = 7;
+	else salz = 8;
+	Salt = Salz_Page * 256*8 + Salz_Byte*8 + salz;
+}
 void flash_salzInit(){
 	Salz_Offset = (PICO_FLASH_SIZE_BYTES - SectorOffset * FLASH_SECTOR_SIZE);
 	Salz_Content = (uint8_t *) (XIP_BASE + Salz_Offset);
 	Salz_Page = 0;
 	Salz_Byte = 0;
 	bool found = false;
-//	flash_range_erase(Salz_Offset, FLASH_SECTOR_SIZE);
 	for(uint8_t myx=0; myx<16; myx++){
 		for(uint16_t myy=0; myy<256; myy++){
 			if(Salz_Content[(15-myx)*256 + 255-myy] != 0xFF){
 				for(uint16_t y=0; y<256; y++){
-					if(y<255-myy)Salz_PageWerte[y] = 1;
+					if(y<255-myy)Salz_PageWerte[y] = 0;
 					else if(y==255-myy)Salz_PageWerte[y] = Salz_Content[(15-myx)*256 + 255-myy];
 					else if(y>255-myy)Salz_PageWerte[y] = 0xFF;
 				}
@@ -34,10 +46,11 @@ void flash_salzInit(){
 		if(found) break;
 	}
 	if(! found) for(int i=0; i<256; i++)Salz_PageWerte[i]=0xFF;
+	set_Salt();
 }
-int flash_salzPlus(){ //return;
+int flash_salzPlus(){
 	uint32_t flags = save_and_disable_interrupts();
-	if(Salz_PageWerte[Salz_Byte]>1) Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
+	if(Salz_PageWerte[Salz_Byte]>0) Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
 	else if(Salz_Byte < 255){
 		Salz_Byte++;
 		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
@@ -45,19 +58,19 @@ int flash_salzPlus(){ //return;
 	else if(Salz_Page < 15){
 		Salz_Page++;
 		Salz_Byte = 0;
-		for(uint8_t y=0; y<255; y++) Salz_PageWerte[Salz_Byte] = 0xFF;
+		for(uint16_t y=0; y<256; y++) Salz_PageWerte[y] = 0xFF;
 		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
 	}
 	else{
 		flash_range_erase(Salz_Offset, FLASH_SECTOR_SIZE);
 		Salz_Page = 0;
 		Salz_Byte = 0;
-		for(uint8_t y=0; y<255; y++) Salz_PageWerte[Salz_Byte] = 0xFF;
+		for(uint16_t y=0; y<256; y++) Salz_PageWerte[y] = 0xFF;
 		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
 	}
 	flash_range_program(Salz_Offset + Salz_Page * FLASH_PAGE_SIZE, Salz_PageWerte, FLASH_PAGE_SIZE);
 	restore_interrupts(flags);
-	Salt = Salz_Page * 256*255 + Salz_Byte*255 + (0xFF - Salz_PageWerte[Salz_Byte]);
+	set_Salt();
 	return Salt;
 }
 
@@ -109,6 +122,7 @@ void get_Flash(){
 void flash_init(uint8_t stage){
 	Flash_Offset = (PICO_FLASH_SIZE_BYTES - (stage + 1 + SectorOffset) * FLASH_SECTOR_SIZE);
 	Flash_Content = (uint8_t *) (XIP_BASE + Flash_Offset);
+//	flash_range_erase(PICO_FLASH_SIZE_BYTES - 64*FLASH_SECTOR_SIZE, 64*FLASH_SECTOR_SIZE);
 	for(uint8_t i=0; i<63; i++){ Data[i] = 0; }
 	bool found = false;
 	Pagecount = 15;
