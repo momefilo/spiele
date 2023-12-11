@@ -1,0 +1,2275 @@
+Klotski Solver v1.7.5 Copyright (C) 2009 Daniel Blazewicz
+This program comes with ABSOLUTELY NO WARRANTY. This is free software,
+and you are welcome to redistribute it under certain conditions.
+Please see license.txt for details.
+
+Parameters of program execution:
+ - Available RAM memory in megabytes: 4096
+ - Available disc space in gigabytes: 10
+ - Number of baskets: 31
+ - Excess of hashes: 0.38
+ - How seldom hold generations on disc: 258
+ - File with input data: only_18_moves.txt
+
+Starting configuration:
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+
+Ending conditions:
+. . . . X 
+. . . . X 
+. . . . X 
+. 13 13 . X 
+. 13 13 . X 
+X Y Y X X 
+
+Where:
+X - field not accesible for any piece
+Y - field not accesible for ordinary piece ('ordinary' means 'not listed in ending conditions')
+Z - field must be empty at ending position
+
+I will reserve memory for max. 330220783 configurations,
+or for max. 122373739, if table of hashes is for 46502020 (38%) of additional configurations
+I will use max. 10 GiB of disc space
+I will split configurations into 31 baskets
+I will store on disc only one per 258 generations of configurations
+
+Statistics for every generations: configurations, moves. Total: configurations, moves.
+
+[0s] Generation = 0 : 1 0 Total: 1 0
+[0s] Generation = 1 : 8 8 Total: 9 8
+[0s] Generation = 2 : 20 56 Total: 29 64
+[0s] Generation = 3 : 25 140 Total: 54 204
+[0s] Generation = 4 : 24 157 Total: 78 361
+[0s] Generation = 5 : 11 107 Total: 89 468
+[0s] Generation = 6 : 10 50 Total: 99 518
+[0s] Generation = 7 : 23 48 Total: 122 566
+[0s] Generation = 8 : 52 134 Total: 174 700
+[0s] Generation = 9 : 90 320 Total: 264 1020
+[0s] Generation = 10 : 102 498 Total: 366 1518
+[0s] Generation = 11 : 112 544 Total: 478 2062
+[0s] Generation = 12 : 152 592 Total: 630 2654
+[0s] Generation = 13 : 244 830 Total: 874 3484
+[0s] Generation = 14 : 338 1368 Total: 1212 4852
+[0s] Generation = 15 : 440 1858 Total: 1652 6710
+[0s] Generation = 16 : 550 2314 Total: 2202 9024
+[0s] Generation = 17 : 720 2834 Total: 2922 11858
+[0s] Generation = 18 : 846 3626 Total: 3768 15484
+[0s] Generation = 19 : 902 4146 Total: 4670 19630
+[0s] Generation = 20 : 986 4348 Total: 5656 23978
+[0s] Generation = 21 : 1171 4868 Total: 6827 28846
+[0s] Generation = 22 : 1430 5933 Total: 8257 34779
+[0s] Generation = 23 : 1602 7306 Total: 9859 42085
+[1s] Generation = 24 : 1565 7785 Total: 11424 49870
+[1s] Generation = 25 : 1532 7480 Total: 12956 57350
+[1s] Generation = 26 : 1601 7413 Total: 14557 64763
+[1s] Generation = 27 : 1465 7612 Total: 16022 72375
+I have found a solution (28 moves):
+1 3 4 5 X 
+1 6 7 2 X 
+8 . . 2 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+I have found a solution (28 moves):
+3 4 1 5 X 
+2 6 1 7 X 
+2 . . 8 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+I have found a solution (28 moves):
+3 4 5 1 X 
+2 6 7 1 X 
+2 . . 8 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+I have found a solution (28 moves):
+3 1 4 5 X 
+6 1 7 2 X 
+8 . . 2 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+[1s] Generation = 28 : 1321 6823 Total: 17343 79198
+
+Path to the shortest solution:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 . X 
+6 7 8 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+1 13 13 . X 
+1 13 13 . X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+1 . 13 13 X 
+1 . 13 13 X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+1 3 13 13 X 
+1 . 13 13 X 
+4 . 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+1 3 13 13 X 
+1 4 13 13 X 
+5 . . 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 . 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 10
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 9 X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 11
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 12
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . . X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 13
+1 3 . . X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 14
+1 . . 3 X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 15
+1 . 3 4 X 
+1 . 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 16
+1 3 4 5 X 
+1 . 13 13 X 
+6 . 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 17
+1 3 4 5 X 
+1 13 13 . X 
+6 13 13 . X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 18
+1 3 4 5 X 
+1 13 13 6 X 
+7 13 13 . X 
+8 9 2 . X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 19
+1 3 4 5 X 
+1 13 13 6 X 
+7 13 13 8 X 
+9 10 2 . X 
+11 12 2 . X 
+X Y Y X X 
+Generation number 20
+1 3 4 5 X 
+1 13 13 6 X 
+7 13 13 8 X 
+9 10 . 2 X 
+11 12 . 2 X 
+X Y Y X X 
+Generation number 21
+1 3 4 5 X 
+1 13 13 6 X 
+7 13 13 8 X 
+9 . . 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 22
+1 3 4 5 X 
+1 . . 6 X 
+7 13 13 8 X 
+9 13 13 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 23
+1 3 4 5 X 
+1 6 . . X 
+7 13 13 8 X 
+9 13 13 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 24
+1 3 4 5 X 
+1 6 7 . X 
+8 13 13 . X 
+9 13 13 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 25
+1 3 4 5 X 
+1 6 7 2 X 
+8 13 13 2 X 
+9 13 13 . X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 26
+1 3 4 5 X 
+1 6 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+11 12 . . X 
+X Y Y X X 
+Generation number 27
+1 3 4 5 X 
+1 6 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+1 3 4 5 X 
+1 6 7 2 X 
+8 . . 2 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+
+Path to the shortest solution:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 . 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+. 3 4 5 X 
+. 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+. 13 13 1 X 
+. 13 13 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+13 13 . 1 X 
+13 13 . 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+13 13 3 1 X 
+13 13 . 1 X 
+2 4 . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+13 13 3 1 X 
+13 13 4 1 X 
+2 . . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 7 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 10
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 7 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 11
+13 13 3 1 X 
+13 13 4 1 X 
+. . 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 12
+. . 3 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 13
+3 . . 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 14
+3 4 . 1 X 
+13 13 . 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 15
+3 4 5 1 X 
+13 13 . 1 X 
+13 13 . 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 16
+3 4 5 1 X 
+. 13 13 1 X 
+. 13 13 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 17
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+. 7 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 18
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 19
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+7 . . 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 20
+3 4 5 1 X 
+2 . . 1 X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 21
+3 4 . 1 X 
+2 5 . 1 X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 22
+3 4 1 . X 
+2 5 1 . X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 23
+3 4 1 5 X 
+2 6 1 . X 
+2 13 13 . X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 24
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 . X 
+8 13 13 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 25
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 . X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 26
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 10 X 
+11 12 . . X 
+X Y Y X X 
+Generation number 27
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+3 4 1 5 X 
+2 6 1 7 X 
+2 . . 8 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+
+Path to the shortest solution:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 . 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+. 3 4 5 X 
+. 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+. 13 13 1 X 
+. 13 13 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+13 13 . 1 X 
+13 13 . 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+13 13 3 1 X 
+13 13 . 1 X 
+2 4 . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+13 13 3 1 X 
+13 13 4 1 X 
+2 . . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+. 2 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 10
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+7 2 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 11
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+7 2 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 12
+13 13 3 1 X 
+13 13 4 1 X 
+. . 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 13
+. . 3 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 14
+3 . . 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 15
+3 4 . 1 X 
+13 13 . 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 16
+3 4 5 1 X 
+13 13 . 1 X 
+13 13 . 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 17
+3 4 5 1 X 
+. 13 13 1 X 
+. 13 13 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 18
+3 4 5 1 X 
+6 13 13 1 X 
+. 13 13 7 X 
+. 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 19
+3 4 5 1 X 
+6 13 13 1 X 
+7 13 13 8 X 
+. 2 9 10 X 
+. 2 11 12 X 
+X Y Y X X 
+Generation number 20
+3 4 5 1 X 
+6 13 13 1 X 
+7 13 13 8 X 
+2 . 9 10 X 
+2 . 11 12 X 
+X Y Y X X 
+Generation number 21
+3 4 5 1 X 
+6 13 13 1 X 
+7 13 13 8 X 
+2 . . 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 22
+3 4 5 1 X 
+6 . . 1 X 
+7 13 13 8 X 
+2 13 13 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 23
+3 4 5 1 X 
+. . 6 1 X 
+7 13 13 8 X 
+2 13 13 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 24
+3 4 5 1 X 
+. 6 7 1 X 
+. 13 13 8 X 
+2 13 13 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 25
+3 4 5 1 X 
+2 6 7 1 X 
+2 13 13 8 X 
+. 13 13 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 26
+3 4 5 1 X 
+2 6 7 1 X 
+2 13 13 8 X 
+9 13 13 10 X 
+. . 11 12 X 
+X Y Y X X 
+Generation number 27
+3 4 5 1 X 
+2 6 7 1 X 
+2 13 13 8 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+3 4 5 1 X 
+2 6 7 1 X 
+2 . . 8 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+
+Path to the shortest solution:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 . X 
+6 7 8 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+1 13 13 . X 
+1 13 13 . X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+1 . 13 13 X 
+1 . 13 13 X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+1 3 13 13 X 
+1 . 13 13 X 
+4 . 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+1 3 13 13 X 
+1 4 13 13 X 
+5 . . 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 . 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 9 2 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 10
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 9 2 X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 11
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . . X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 12
+1 3 . . X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 13
+1 . . 3 X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 14
+1 . 3 4 X 
+1 . 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 15
+1 3 4 5 X 
+1 . 13 13 X 
+6 . 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 16
+1 3 4 5 X 
+1 13 13 . X 
+6 13 13 . X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 17
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 8 9 . X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 18
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 19
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 . . 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 20
+1 3 4 5 X 
+1 . . 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 21
+1 . 3 4 X 
+1 . 5 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 22
+. 1 3 4 X 
+. 1 5 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 23
+3 1 4 5 X 
+. 1 6 2 X 
+. 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 24
+3 1 4 5 X 
+6 1 7 2 X 
+. 13 13 2 X 
+. 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 25
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+. 13 13 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 26
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+. . 11 12 X 
+X Y Y X X 
+Generation number 27
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+3 1 4 5 X 
+6 1 7 2 X 
+8 . . 2 X 
+9 13 13 10 X 
+11 13 13 12 X 
+X Y Y X X 
+[13s] Generation = 29 : 1447 6268 Total: 18790 85466
+[13s] Generation = 30 : 1894 7884 Total: 20684 93350
+[13s] Generation = 31 : 3610 14947 Total: 24294 108297
+[13s] Generation = 32 : 7625 36855 Total: 31919 145152
+[13s] Generation = 33 : 13977 86564 Total: 45896 231716
+[14s] Generation = 34 : 19760 159586 Total: 65656 391302
+[14s] Generation = 35 : 20540 218604 Total: 86196 609906
+[14s] Generation = 36 : 15898 216778 Total: 102094 826684
+[15s] Generation = 37 : 9356 160700 Total: 111450 987384
+[15s] Generation = 38 : 4585 91048 Total: 116035 1078432
+[15s] Generation = 39 : 1790 42247 Total: 117825 1120679
+[15s] Generation = 40 : 642 13592 Total: 118467 1134271
+[15s] Generation = 41 : 204 3521 Total: 118671 1137792
+[15s] Generation = 42 : 78 798 Total: 118749 1138590
+[15s] Generation = 43 : 34 272 Total: 118783 1138862
+[15s] Generation = 44 : 20 118 Total: 118803 1138980
+[15s] Generation = 45 : 14 74 Total: 118817 1139054
+[15s] Generation = 46 : 4 46 Total: 118821 1139100
+[15s] Generation = 47 : 0 14 Total: 118821 1139114
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 . 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+. 3 4 5 X 
+. 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+. 13 13 1 X 
+. 13 13 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+13 13 . 1 X 
+13 13 . 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+13 13 3 1 X 
+13 13 . 1 X 
+2 4 . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+13 13 3 1 X 
+13 13 4 1 X 
+2 . . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+. 2 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 10
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+7 2 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 11
+13 13 3 1 X 
+13 13 4 1 X 
+. 2 5 6 X 
+7 2 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 12
+13 13 3 1 X 
+13 13 4 1 X 
+. . 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 13
+. . 3 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 14
+3 . . 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 15
+3 4 . 1 X 
+13 13 . 1 X 
+13 13 5 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 16
+3 4 5 1 X 
+13 13 . 1 X 
+13 13 . 6 X 
+7 2 8 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 17
+3 4 5 1 X 
+13 13 6 1 X 
+13 13 . 7 X 
+8 2 . 9 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 18
+3 4 5 1 X 
+13 13 6 1 X 
+13 13 7 8 X 
+9 2 . 10 X 
+11 2 . 12 X 
+X Y Y X X 
+Generation number 19
+3 4 5 1 X 
+13 13 6 1 X 
+13 13 7 8 X 
+9 . 2 10 X 
+11 . 2 12 X 
+X Y Y X X 
+Generation number 20
+3 4 5 1 X 
+13 13 6 1 X 
+13 13 7 8 X 
+. . 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 21
+3 4 5 1 X 
+. . 6 1 X 
+13 13 7 8 X 
+13 13 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 22
+3 4 5 1 X 
+6 . . 1 X 
+13 13 7 8 X 
+13 13 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 23
+3 4 . 1 X 
+5 6 . 1 X 
+13 13 7 8 X 
+13 13 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 24
+3 4 1 . X 
+5 6 1 . X 
+13 13 7 8 X 
+13 13 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 25
+3 4 1 5 X 
+6 7 1 . X 
+13 13 8 . X 
+13 13 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 26
+3 4 1 5 X 
+6 7 1 8 X 
+13 13 9 . X 
+13 13 2 . X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 27
+3 4 1 5 X 
+6 7 1 8 X 
+13 13 9 10 X 
+13 13 2 . X 
+11 12 2 . X 
+X Y Y X X 
+Generation number 28
+3 4 1 5 X 
+6 7 1 8 X 
+13 13 9 10 X 
+13 13 . 2 X 
+11 12 . 2 X 
+X Y Y X X 
+Generation number 29
+3 4 1 5 X 
+6 7 1 8 X 
+13 13 9 10 X 
+13 13 11 2 X 
+12 . . 2 X 
+X Y Y X X 
+Generation number 30
+3 4 1 5 X 
+6 7 1 8 X 
+13 13 9 10 X 
+13 13 11 2 X 
+. . 12 2 X 
+X Y Y X X 
+Generation number 31
+3 4 1 5 X 
+6 7 1 8 X 
+. . 9 10 X 
+13 13 11 2 X 
+13 13 12 2 X 
+X Y Y X X 
+Generation number 32
+3 4 1 5 X 
+6 7 1 8 X 
+9 . . 10 X 
+13 13 11 2 X 
+13 13 12 2 X 
+X Y Y X X 
+Generation number 33
+3 4 1 5 X 
+6 7 1 8 X 
+9 10 . 11 X 
+13 13 . 2 X 
+13 13 12 2 X 
+X Y Y X X 
+Generation number 34
+3 4 1 5 X 
+6 7 1 8 X 
+9 10 11 12 X 
+13 13 . 2 X 
+13 13 . 2 X 
+X Y Y X X 
+Generation number 35
+3 4 1 5 X 
+6 7 1 8 X 
+9 10 11 12 X 
+13 13 2 . X 
+13 13 2 . X 
+X Y Y X X 
+Generation number 36
+3 4 1 5 X 
+6 7 1 8 X 
+9 10 11 . X 
+13 13 2 . X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 37
+3 4 1 5 X 
+6 7 1 8 X 
+9 10 . . X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 38
+3 4 1 5 X 
+6 7 1 8 X 
+9 . . 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 39
+3 4 1 5 X 
+6 7 1 8 X 
+9 . 2 10 X 
+13 13 2 11 X 
+13 13 . 12 X 
+X Y Y X X 
+Generation number 40
+3 4 1 5 X 
+6 7 1 8 X 
+9 . 2 10 X 
+13 13 2 11 X 
+13 13 12 . X 
+X Y Y X X 
+Generation number 41
+3 4 1 5 X 
+6 7 1 8 X 
+9 . 2 10 X 
+13 13 2 . X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 42
+3 4 1 5 X 
+6 7 1 8 X 
+9 . 2 . X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 43
+3 4 1 5 X 
+6 7 1 . X 
+8 . 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 44
+3 4 1 5 X 
+6 . 1 . X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 45
+3 4 1 . X 
+5 . 1 6 X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 46
+3 4 1 . X 
+. 5 1 6 X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 . X 
+6 7 8 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+1 13 13 . X 
+1 13 13 . X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+1 . 13 13 X 
+1 . 13 13 X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+1 3 13 13 X 
+1 . 13 13 X 
+4 . 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+1 3 13 13 X 
+1 4 13 13 X 
+5 . . 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 . 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 9 2 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 10
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 9 2 X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 11
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . . X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 12
+1 3 . . X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 13
+1 . . 3 X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 14
+1 . 3 4 X 
+1 . 13 13 X 
+5 6 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 15
+1 3 4 5 X 
+1 . 13 13 X 
+6 . 13 13 X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 16
+1 3 4 5 X 
+1 13 13 . X 
+6 13 13 . X 
+7 8 9 2 X 
+10 11 12 2 X 
+X Y Y X X 
+Generation number 17
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 8 9 . X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 18
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 19
+1 3 4 5 X 
+1 13 13 2 X 
+6 13 13 2 X 
+7 . . 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 20
+1 3 4 5 X 
+1 . . 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 21
+1 . 3 4 X 
+1 . 5 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 22
+. 1 3 4 X 
+. 1 5 2 X 
+6 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 23
+3 1 4 5 X 
+. 1 6 2 X 
+. 13 13 2 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 24
+3 1 4 5 X 
+6 1 7 2 X 
+. 13 13 2 X 
+. 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 25
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+. 13 13 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 26
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+. . 11 12 X 
+X Y Y X X 
+Generation number 27
+3 1 4 5 X 
+6 1 7 2 X 
+8 13 13 2 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+3 1 4 5 X 
+6 1 7 2 X 
+8 . . 2 X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 29
+3 1 4 5 X 
+6 1 . 2 X 
+7 8 . 2 X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 30
+3 1 4 5 X 
+6 1 2 . X 
+7 8 2 . X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 31
+3 1 4 5 X 
+6 1 2 7 X 
+8 9 2 . X 
+10 . . . X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 32
+3 1 4 5 X 
+6 1 2 7 X 
+8 9 2 10 X 
+. . . . X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 33
+3 1 4 5 X 
+6 1 2 7 X 
+8 9 2 10 X 
+. . . 11 X 
+. 13 13 12 X 
+X 13 13 X X 
+Generation number 34
+3 1 4 5 X 
+6 1 2 7 X 
+8 9 2 10 X 
+13 13 . 11 X 
+13 13 . 12 X 
+X Y Y X X 
+Generation number 35
+3 1 4 5 X 
+6 1 . 7 X 
+8 9 . 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 36
+3 1 . 4 X 
+5 1 . 6 X 
+7 8 9 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 37
+3 . 1 4 X 
+5 . 1 6 X 
+7 8 9 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 38
+3 . 1 4 X 
+5 6 1 7 X 
+8 . 9 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 39
+3 . 1 4 X 
+5 6 1 7 X 
+8 9 . 10 X 
+13 13 2 11 X 
+13 13 2 12 X 
+X Y Y X X 
+Generation number 40
+3 . 1 4 X 
+5 6 1 7 X 
+8 9 2 10 X 
+13 13 2 11 X 
+13 13 . 12 X 
+X Y Y X X 
+Generation number 41
+3 . 1 4 X 
+5 6 1 7 X 
+8 9 2 10 X 
+13 13 2 11 X 
+13 13 12 . X 
+X Y Y X X 
+Generation number 42
+3 . 1 4 X 
+5 6 1 7 X 
+8 9 2 10 X 
+13 13 2 . X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 43
+3 . 1 4 X 
+5 6 1 7 X 
+8 9 2 . X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 44
+3 . 1 4 X 
+5 6 1 . X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 45
+3 . 1 . X 
+4 5 1 6 X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+Generation number 46
+. 3 1 . X 
+4 5 1 6 X 
+7 8 2 9 X 
+13 13 2 10 X 
+13 13 11 12 X 
+X Y Y X X 
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 . . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 . X 
+6 7 8 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+1 13 13 . X 
+1 13 13 . X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+1 . 13 13 X 
+1 . 13 13 X 
+3 4 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+1 3 13 13 X 
+1 . 13 13 X 
+4 . 5 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+1 3 13 13 X 
+1 4 13 13 X 
+5 . . 2 X 
+6 7 8 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . 2 X 
+7 8 . 2 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 10
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 9 X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 11
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 2 . X 
+7 8 2 9 X 
+10 11 . 12 X 
+X Y Y X X 
+Generation number 12
+1 3 13 13 X 
+1 4 13 13 X 
+5 6 . . X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 13
+1 3 . . X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 14
+1 . . 3 X 
+1 4 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 15
+1 . 3 4 X 
+1 . 13 13 X 
+5 6 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 16
+1 3 4 5 X 
+1 . 13 13 X 
+6 . 13 13 X 
+7 8 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 17
+1 3 4 5 X 
+1 6 13 13 X 
+7 . 13 13 X 
+8 . 2 9 X 
+10 11 2 12 X 
+X Y Y X X 
+Generation number 18
+1 3 4 5 X 
+1 6 13 13 X 
+7 8 13 13 X 
+9 . 2 10 X 
+11 . 2 12 X 
+X Y Y X X 
+Generation number 19
+1 3 4 5 X 
+1 6 13 13 X 
+7 8 13 13 X 
+9 2 . 10 X 
+11 2 . 12 X 
+X Y Y X X 
+Generation number 20
+1 3 4 5 X 
+1 6 13 13 X 
+7 8 13 13 X 
+9 2 . . X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 21
+1 3 4 5 X 
+1 6 . . X 
+7 8 13 13 X 
+9 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 22
+1 3 4 5 X 
+1 . . 6 X 
+7 8 13 13 X 
+9 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 23
+1 . 3 4 X 
+1 . 5 6 X 
+7 8 13 13 X 
+9 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 24
+. 1 3 4 X 
+. 1 5 6 X 
+7 8 13 13 X 
+9 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 25
+3 1 4 5 X 
+. 1 6 7 X 
+. 8 13 13 X 
+9 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 26
+3 1 4 5 X 
+6 1 7 8 X 
+. 9 13 13 X 
+. 2 13 13 X 
+10 2 11 12 X 
+X Y Y X X 
+Generation number 27
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 13 13 X 
+. 2 13 13 X 
+. 2 11 12 X 
+X Y Y X X 
+Generation number 28
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 13 13 X 
+2 . 13 13 X 
+2 . 11 12 X 
+X Y Y X X 
+Generation number 29
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 13 13 X 
+2 11 13 13 X 
+2 . . 12 X 
+X Y Y X X 
+Generation number 30
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 13 13 X 
+2 11 13 13 X 
+2 12 . . X 
+X Y Y X X 
+Generation number 31
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 . . X 
+2 11 13 13 X 
+2 12 13 13 X 
+X Y Y X X 
+Generation number 32
+3 1 4 5 X 
+6 1 7 8 X 
+9 . . 10 X 
+2 11 13 13 X 
+2 12 13 13 X 
+X Y Y X X 
+Generation number 33
+3 1 4 5 X 
+6 1 7 8 X 
+9 . 10 11 X 
+2 . 13 13 X 
+2 12 13 13 X 
+X Y Y X X 
+Generation number 34
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 11 12 X 
+2 . 13 13 X 
+2 . 13 13 X 
+X Y Y X X 
+Generation number 35
+3 1 4 5 X 
+6 1 7 8 X 
+9 10 11 12 X 
+. 2 13 13 X 
+. 2 13 13 X 
+X Y Y X X 
+Generation number 36
+3 1 4 5 X 
+6 1 7 8 X 
+. 9 10 11 X 
+. 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 37
+3 1 4 5 X 
+6 1 7 8 X 
+. . 9 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 38
+3 1 4 5 X 
+6 1 7 8 X 
+9 . . 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 39
+3 1 4 5 X 
+6 1 7 8 X 
+9 2 . 10 X 
+11 2 13 13 X 
+12 . 13 13 X 
+X Y Y X X 
+Generation number 40
+3 1 4 5 X 
+6 1 7 8 X 
+9 2 . 10 X 
+11 2 13 13 X 
+. 12 13 13 X 
+X Y Y X X 
+Generation number 41
+3 1 4 5 X 
+6 1 7 8 X 
+9 2 . 10 X 
+. 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 42
+3 1 4 5 X 
+6 1 7 8 X 
+. 2 . 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 43
+3 1 4 5 X 
+6 1 . 7 X 
+. 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 44
+3 1 4 5 X 
+. 1 . 6 X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 45
+3 1 4 5 X 
+. 1 6 . X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 46
+. 1 3 4 X 
+5 1 6 . X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 1
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+7 . 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 2
+1 13 13 2 X 
+1 13 13 2 X 
+3 4 5 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 3
+1 13 13 2 X 
+1 13 13 2 X 
+. 3 4 5 X 
+. 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 4
+. 13 13 1 X 
+. 13 13 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 5
+13 13 . 1 X 
+13 13 . 1 X 
+2 3 4 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 6
+13 13 3 1 X 
+13 13 . 1 X 
+2 4 . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 7
+13 13 3 1 X 
+13 13 4 1 X 
+2 . . 5 X 
+2 6 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 8
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 9
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 7 8 9 X 
+10 . 11 12 X 
+X Y Y X X 
+Generation number 10
+13 13 3 1 X 
+13 13 4 1 X 
+2 . 5 6 X 
+2 7 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 11
+13 13 3 1 X 
+13 13 4 1 X 
+. . 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 12
+. . 3 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 13
+3 . . 1 X 
+13 13 4 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 14
+3 4 . 1 X 
+13 13 . 1 X 
+13 13 5 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 15
+3 4 5 1 X 
+13 13 . 1 X 
+13 13 . 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 16
+3 4 5 1 X 
+. 13 13 1 X 
+. 13 13 6 X 
+2 7 8 9 X 
+2 10 11 12 X 
+X Y Y X X 
+Generation number 17
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+. 7 8 9 X 
+. 10 11 12 X 
+X Y Y X X 
+Generation number 18
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+. . 7 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 19
+3 4 5 1 X 
+2 13 13 1 X 
+2 13 13 6 X 
+7 . . 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 20
+3 4 5 1 X 
+2 . . 1 X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 21
+3 4 . 1 X 
+2 5 . 1 X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 22
+3 4 1 . X 
+2 5 1 . X 
+2 13 13 6 X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 23
+3 4 1 5 X 
+2 6 1 . X 
+2 13 13 . X 
+7 13 13 8 X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 24
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 . X 
+8 13 13 . X 
+9 10 11 12 X 
+X Y Y X X 
+Generation number 25
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 . X 
+10 11 12 . X 
+X Y Y X X 
+Generation number 26
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 10 X 
+11 12 . . X 
+X Y Y X X 
+Generation number 27
+3 4 1 5 X 
+2 6 1 7 X 
+2 13 13 8 X 
+9 13 13 10 X 
+11 . . 12 X 
+X Y Y X X 
+Generation number 28
+3 4 1 5 X 
+2 6 1 7 X 
+2 . . 8 X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 29
+3 4 1 5 X 
+2 . 1 6 X 
+2 . 7 8 X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 30
+3 4 1 5 X 
+. 2 1 6 X 
+. 2 7 8 X 
+9 . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 31
+3 4 1 5 X 
+6 2 1 7 X 
+. 2 8 9 X 
+. . . 10 X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 32
+3 4 1 5 X 
+6 2 1 7 X 
+8 2 9 10 X 
+. . . . X 
+11 13 13 12 X 
+X 13 13 X X 
+Generation number 33
+3 4 1 5 X 
+6 2 1 7 X 
+8 2 9 10 X 
+11 . . . X 
+12 13 13 . X 
+X 13 13 X X 
+Generation number 34
+3 4 1 5 X 
+6 2 1 7 X 
+8 2 9 10 X 
+11 . 13 13 X 
+12 . 13 13 X 
+X Y Y X X 
+Generation number 35
+3 4 1 5 X 
+6 . 1 7 X 
+8 . 9 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 36
+3 . 1 4 X 
+5 . 1 6 X 
+7 8 9 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 37
+3 1 . 4 X 
+5 1 . 6 X 
+7 8 9 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 38
+3 1 . 4 X 
+5 1 6 7 X 
+8 9 . 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 39
+3 1 . 4 X 
+5 1 6 7 X 
+8 . 9 10 X 
+11 2 13 13 X 
+12 2 13 13 X 
+X Y Y X X 
+Generation number 40
+3 1 . 4 X 
+5 1 6 7 X 
+8 2 9 10 X 
+11 2 13 13 X 
+12 . 13 13 X 
+X Y Y X X 
+Generation number 41
+3 1 . 4 X 
+5 1 6 7 X 
+8 2 9 10 X 
+11 2 13 13 X 
+. 12 13 13 X 
+X Y Y X X 
+Generation number 42
+3 1 . 4 X 
+5 1 6 7 X 
+8 2 9 10 X 
+. 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 43
+3 1 . 4 X 
+5 1 6 7 X 
+. 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 44
+3 1 . 4 X 
+. 1 5 6 X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 45
+. 1 . 3 X 
+4 1 5 6 X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Generation number 46
+. 1 3 . X 
+4 1 5 6 X 
+7 2 8 9 X 
+10 2 13 13 X 
+11 12 13 13 X 
+X Y Y X X 
+Furthest configurations are accessible in 46 moves
+Total number of configurations: 118821
+Total number of moves: 1139114
+Please, delete manually all directories: temp_*
+They aren't automatically deleted because you may want to use these temporary data for further research.

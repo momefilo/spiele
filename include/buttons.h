@@ -6,8 +6,8 @@
 
 #define BUTTON_U 6
 #define BUTTON_D 7
-#define BUTTON_L 8
-#define BUTTON_R 9
+#define BUTTON_R 8
+#define BUTTON_L 9
 
 /* Initialisiert gpio */
 void buttons_init();

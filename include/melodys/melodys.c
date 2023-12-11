@@ -1,8 +1,22 @@
 #include "../libs/sound/sound.h"
 #include "../melodys.h"
 #include "pico/stdlib.h"
+#include "pico/multicore.h"
 
-void melodys_init(){sound_init();}
+void core1_entry() {
+    while (1) {
+        // Function pointer is passed to us via the FIFO
+        // We have one incoming int32_t as a parameter, and will provide an
+        // int32_t return value by simply pushing it back on the FIFO
+        // which also indicates the result is ready.
+        int32_t (*func)() = (int32_t(*)()) multicore_fifo_pop_blocking();
+        (*func)();
+    }
+}
+void melodys_init(){
+	sound_init();
+//	multicore_launch_core1(core1_entry);
+}
 void melody_Row(){
 	uint8_t oktave = 0;
 	uint8_t dauer = 64;
@@ -73,9 +87,9 @@ void melody_PeerGynt(){
 }
 
 void melodys_play(uint8_t melody){
-	if(melody == SOUND_BAH) melody_Bah();
-	if(melody == SOUND_YEH) melody_Yeh();
-	if(melody == SOUND_ROW) melody_Row();
-	if(melody == SOUND_FALL) melody_Fall();
-	if(melody == SOUND_YUP) melody_Yup();
+	if(melody == SOUND_BAH) melody_Bah();//multicore_fifo_push_blocking((uintptr_t) &melody_Bah);
+	if(melody == SOUND_YEH) melody_Yeh();//multicore_fifo_push_blocking((uintptr_t) &melody_Yeh);
+	if(melody == SOUND_ROW) melody_Row();//multicore_fifo_push_blocking((uintptr_t) &melody_Row);
+	if(melody == SOUND_FALL)melody_Fall();// multicore_fifo_push_blocking((uintptr_t) &melody_Fall);
+	if(melody == SOUND_YUP) melody_Yup();//multicore_fifo_push_blocking((uintptr_t) &melody_Yup);
 }

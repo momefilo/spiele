@@ -10,6 +10,13 @@
 /* inits the display */
 void ili9341_init();
 
+/*inits the touchfunction of the diplay */
+void ili9341_touch_init();
+
+/*returns the position [0..240, 0..320] of the touch, or [0xffff, 0xffff] if no touch
+ * unabhaengig von der orientation*/
+uint16_t *ili9341_getTouch();
+
 /* Setzt die Orientierung, Parameter ori sind HORIZONTAL und VERTICAL */
 void setOrientation(uint8_t ori);
 

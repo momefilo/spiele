@@ -3,7 +3,7 @@
 
 #include "pico/stdlib.h"
 
-#define BUZZER_PIN 5
+#define BUZZER_PIN 17
 
 void sound_init();
 

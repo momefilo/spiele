@@ -5,7 +5,6 @@
 #include "../include/melodys.h"
 #include "graphics/snake15x15.h"
 #include "snake.h"
-#include "hardware/adc.h"
 #include <stdlib.h>
 
 #define SNAKE_Left	0
@@ -68,13 +67,8 @@ void snake_init(uint8_t progId){
 	setOrientation(VERTICAL);
 	melodys_init();
 	ranking_init(progId);
-	adc_init();
 	Tail = (struct POS*)malloc(sizeof(struct POS));
-	adc_select_input(0);
-	Snake_Salz = adc_read()*2;
-	sleep_us(1);
-	adc_select_input(1);
-	Snake_Salz = Snake_Salz + adc_read()+1;
+	Snake_Salz = get_Salz();;
 }
 void snake_reset(){
 	for(int x=0; x<16; x++){

@@ -1,0 +1,816 @@
+Klotski Solver v1.7.5 Copyright (C) 2009 Daniel Blazewicz
+This program comes with ABSOLUTELY NO WARRANTY. This is free software,
+and you are welcome to redistribute it under certain conditions.
+Please see license.txt for details.
+
+Parameters of program execution:
+ - Available RAM memory in megabytes: 4096
+ - Available disc space in gigabytes: 10
+ - Number of baskets: 31
+ - Excess of hashes: 0.38
+ - How seldom hold generations on disc: 258
+ - File with input data: only_18_moves.txt
+
+Starting configuration:
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 10 11 12 X 
+13 . . 14 X 
+X Y Y X X 
+
+Ending conditions:
+. . . . X 
+. . . . X 
+. . . . X 
+. 15 15 . X 
+. 15 15 . X 
+X Y Y X X 
+
+Where:
+X - field not accesible for any piece
+Y - field not accesible for ordinary piece ('ordinary' means 'not listed in ending conditions')
+Z - field must be empty at ending position
+
+I will reserve memory for max. 286191383 configurations,
+or for max. 115773197, if table of hashes is for 43993814 (38%) of additional configurations
+I will use max. 10 GiB of disc space
+I will split configurations into 31 baskets
+I will store on disc only one per 258 generations of configurations
+
+Statistics for every generations: configurations, moves. Total: configurations, moves.
+
+[0s] Generation = 0 : 1 0 Total: 1 0
+[0s] Generation = 1 : 8 8 Total: 9 8
+[0s] Generation = 2 : 20 56 Total: 29 64
+[0s] Generation = 3 : 25 140 Total: 54 204
+[0s] Generation = 4 : 24 159 Total: 78 363
+[0s] Generation = 5 : 29 131 Total: 107 494
+[0s] Generation = 6 : 19 126 Total: 126 620
+[0s] Generation = 7 : 27 86 Total: 153 706
+[0s] Generation = 8 : 43 138 Total: 196 844
+[0s] Generation = 9 : 99 276 Total: 295 1120
+[0s] Generation = 10 : 158 624 Total: 453 1744
+[0s] Generation = 11 : 145 963 Total: 598 2707
+[0s] Generation = 12 : 91 807 Total: 689 3514
+[0s] Generation = 13 : 62 468 Total: 751 3982
+[0s] Generation = 14 : 56 322 Total: 807 4304
+[0s] Generation = 15 : 70 314 Total: 877 4618
+[0s] Generation = 16 : 70 382 Total: 947 5000
+[0s] Generation = 17 : 72 384 Total: 1019 5384
+I have found a solution (18 moves):
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 15 15 12 X 
+13 15 15 14 X 
+X Y Y X X 
+[0s] Generation = 18 : 45 368 Total: 1064 5752
+
+Path to the shortest solution:
+
+Generation number 0
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 10 11 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 1
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 . 10 11 X 
+12 . 13 14 X 
+X Y Y X X 
+Generation number 2
+1 15 15 2 X 
+3 15 15 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 3
+1 15 15 2 X 
+3 15 15 4 X 
+5 . . 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 4
+1 . . 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 5
+. . 1 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 6
+. 1 2 3 X 
+. 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 7
+1 2 3 4 X 
+. 15 15 5 X 
+. 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 8
+1 2 3 4 X 
+5 15 15 6 X 
+. 15 15 7 X 
+. 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 9
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+. . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 10
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 11
+1 2 3 4 X 
+5 . . 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 12
+1 2 3 4 X 
+. . 5 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 13
+1 2 3 4 X 
+. 5 6 7 X 
+. 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 14
+1 2 3 4 X 
+5 6 7 8 X 
+. 15 15 9 X 
+. 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 15
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+. 15 15 11 X 
+. 12 13 14 X 
+X Y Y X X 
+Generation number 16
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+. . 13 14 X 
+X Y Y X X 
+Generation number 17
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 18
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 15 15 12 X 
+13 15 15 14 X 
+X Y Y X X 
+[2s] Generation = 19 : 50 222 Total: 1114 5974
+[2s] Generation = 20 : 202 720 Total: 1316 6694
+[2s] Generation = 21 : 596 3559 Total: 1912 10253
+[2s] Generation = 22 : 974 9343 Total: 2886 19596
+[2s] Generation = 23 : 937 13559 Total: 3823 33155
+[2s] Generation = 24 : 489 11373 Total: 4312 44528
+[2s] Generation = 25 : 162 5212 Total: 4474 49740
+[2s] Generation = 26 : 23 1464 Total: 4497 51204
+[2s] Generation = 27 : 3 188 Total: 4500 51392
+[2s] Generation = 28 : 0 20 Total: 4500 51412
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 10 11 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 1
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 . 10 11 X 
+12 . 13 14 X 
+X Y Y X X 
+Generation number 2
+1 15 15 2 X 
+3 15 15 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 3
+1 15 15 2 X 
+3 15 15 4 X 
+5 . . 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 4
+1 . . 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 5
+. . 1 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 6
+. 1 2 3 X 
+. 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 7
+1 2 3 4 X 
+. 15 15 5 X 
+. 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 8
+1 2 3 4 X 
+5 15 15 6 X 
+. 15 15 7 X 
+. 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 9
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+. . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 10
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 11
+1 2 3 4 X 
+5 . . 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 12
+1 2 3 4 X 
+. . 5 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 13
+1 2 3 4 X 
+. 5 6 7 X 
+. 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 14
+1 2 3 4 X 
+5 6 7 8 X 
+. 15 15 9 X 
+. 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 15
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+. 15 15 11 X 
+. 12 13 14 X 
+X Y Y X X 
+Generation number 16
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+. . 13 14 X 
+X Y Y X X 
+Generation number 17
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 18
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . . 12 X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 19
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 . X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 20
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 21
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+. 11 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 22
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 23
+1 2 3 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 24
+1 2 3 4 X 
+. . 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 25
+1 . 2 3 X 
+. 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 26
+1 2 . 3 X 
+. 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 27
+1 2 3 . X 
+. 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 10 11 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 1
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 . 10 11 X 
+12 . 13 14 X 
+X Y Y X X 
+Generation number 2
+1 15 15 2 X 
+3 15 15 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 3
+1 15 15 2 X 
+3 15 15 4 X 
+5 . . 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 4
+1 . . 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 5
+. . 1 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 6
+. 1 2 3 X 
+. 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 7
+1 2 3 4 X 
+. 15 15 5 X 
+. 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 8
+1 2 3 4 X 
+5 15 15 6 X 
+. 15 15 7 X 
+. 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 9
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+. . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 10
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 11
+1 2 3 4 X 
+5 . . 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 12
+1 2 3 4 X 
+. . 5 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 13
+1 2 3 4 X 
+. 5 6 7 X 
+. 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 14
+1 2 3 4 X 
+5 6 7 8 X 
+. 15 15 9 X 
+. 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 15
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+. 15 15 11 X 
+. 12 13 14 X 
+X Y Y X X 
+Generation number 16
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+. . 13 14 X 
+X Y Y X X 
+Generation number 17
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 18
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . . 12 X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 19
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 . X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 20
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 21
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+. 11 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 22
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 23
+1 2 3 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 24
+1 . 2 3 X 
+4 . 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 25
+1 . . 2 X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 26
+1 . 2 . X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 27
+. 1 2 . X 
+3 4 5 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+
+Paths to the furthest configurations:
+
+Generation number 0
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 10 11 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 1
+1 15 15 2 X 
+3 15 15 4 X 
+5 6 7 8 X 
+9 . 10 11 X 
+12 . 13 14 X 
+X Y Y X X 
+Generation number 2
+1 15 15 2 X 
+3 15 15 4 X 
+5 . 6 7 X 
+8 . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 3
+1 15 15 2 X 
+3 15 15 4 X 
+5 . . 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 4
+1 . . 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 5
+. . 1 2 X 
+3 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 6
+. 1 2 3 X 
+. 15 15 4 X 
+5 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 7
+1 2 3 4 X 
+. 15 15 5 X 
+. 15 15 6 X 
+7 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 8
+1 2 3 4 X 
+5 15 15 6 X 
+. 15 15 7 X 
+. 8 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 9
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+. . 9 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 10
+1 2 3 4 X 
+5 15 15 6 X 
+7 15 15 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 11
+1 2 3 4 X 
+5 . . 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 12
+1 2 3 4 X 
+. . 5 6 X 
+7 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 13
+1 2 3 4 X 
+. 5 6 7 X 
+. 15 15 8 X 
+9 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 14
+1 2 3 4 X 
+5 6 7 8 X 
+. 15 15 9 X 
+. 15 15 10 X 
+11 12 13 14 X 
+X Y Y X X 
+Generation number 15
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+. 15 15 11 X 
+. 12 13 14 X 
+X Y Y X X 
+Generation number 16
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+. . 13 14 X 
+X Y Y X X 
+Generation number 17
+1 2 3 4 X 
+5 6 7 8 X 
+9 15 15 10 X 
+11 15 15 12 X 
+13 . . 14 X 
+X Y Y X X 
+Generation number 18
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . . 12 X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 19
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 . X 
+13 15 15 14 X 
+X 15 15 X X 
+Generation number 20
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 . 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 21
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+. 11 12 13 X 
+14 15 15 . X 
+X 15 15 X X 
+Generation number 22
+1 2 3 4 X 
+5 6 7 8 X 
+9 . . 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 23
+1 2 3 4 X 
+5 6 . 7 X 
+8 9 . 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 24
+1 2 3 4 X 
+5 6 . . X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 25
+1 2 . 3 X 
+4 5 6 . X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 26
+1 . 2 3 X 
+4 5 6 . X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Generation number 27
+. 1 2 3 X 
+4 5 6 . X 
+7 8 9 10 X 
+11 12 13 14 X 
+. 15 15 . X 
+X 15 15 X X 
+Furthest configurations are accessible in 27 moves
+Total number of configurations: 4500
+Total number of moves: 51412
+Please, delete manually all directories: temp_*
+They aren't automatically deleted because you may want to use these temporary data for further research.

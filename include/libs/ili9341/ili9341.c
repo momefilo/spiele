@@ -1,7 +1,6 @@
 // momefilo Desing
 #include "hardware/spi.h"
 #include "hardware/gpio.h"
-#include "pico/stdlib.h"
 #include "../fonts/font16x16.h"
 #include "../fonts/font12x12.h"
 #include "ili9341.h"
@@ -13,10 +12,18 @@
 #define PIN_CS  13
 #define PIN_RST 14
 
+#define TOUCH_SPI_PORT spi0
+#define TOUCH_SCK_PIN 2
+#define TOUCH_DIN_PIN 3
+#define TOUCH_DOUT_PIN 4
+#define TOUCH_CS_PIN 5
+#define TOUCH_IRQ_PIN 15
+
 uint16_t FgColor = 0xFEE0;
 uint16_t BgColor = 0x0000;
 uint16_t SeColor = 0xE0FF;
 uint16_t Width, Height;
+uint16_t Pos[2] = {0xffff,0xffff};
 
 static inline void cs_select() {
 	asm volatile("nop \n nop \n nop");
@@ -121,6 +128,7 @@ void clearScreen(){
 	set_row(0, Height -1);
 	write_cmd(area, len);
 }
+
 void ili9341_init(){
 	if(true){//spi setup
 		int speed = spi_init(SPI_PORT, 50* 1000 * 1000);
@@ -272,4 +280,67 @@ void paintRectGradient(uint16_t *area, uint16_t color1, uint16_t color2){
 	set_col(area[0], area[2]);
 	set_row(area[1], area[3]);
 	write_cmd(pixarea, (len));
+}
+
+void ili9341_touch_init(){
+	int speed = spi_init(TOUCH_SPI_PORT, 200*1000);
+	spi_set_format(TOUCH_SPI_PORT, 8, 0, 0, SPI_MSB_FIRST);
+	gpio_set_function(TOUCH_SCK_PIN, GPIO_FUNC_SPI);
+	gpio_set_function(TOUCH_DIN_PIN, GPIO_FUNC_SPI);
+	gpio_set_function(TOUCH_DOUT_PIN, GPIO_FUNC_SPI);
+	gpio_init(TOUCH_CS_PIN);
+	gpio_set_dir(TOUCH_CS_PIN, GPIO_OUT);
+	gpio_put(TOUCH_CS_PIN, 1);
+}
+
+void touch_select() {
+	asm volatile("nop \n nop \n nop");
+	gpio_put(TOUCH_CS_PIN, 0);
+	asm volatile("nop \n nop \n nop");
+}
+void touch_deselect() {
+	asm volatile("nop \n nop \n nop");
+	gpio_put(TOUCH_CS_PIN, 1);
+	asm volatile("nop \n nop \n nop");
+}
+
+/*returns the position of the touch or [0xffff,0xffff] if no touch */
+uint16_t *ili9341_getTouch(){
+	uint8_t msb = 0, lsb = 0;
+	Pos[0]=0xffff;
+	Pos[1]=0xffff;
+	touch_select();
+	uint8_t cmd = 0xB0;
+	spi_write_blocking(TOUCH_SPI_PORT, &cmd, 1);
+	spi_read_blocking(TOUCH_SPI_PORT, 0, &msb, 1);
+	spi_read_blocking(TOUCH_SPI_PORT, 0, &lsb, 1);
+	uint16_t z1 = ((((msb & 0x7ff) << 8) + lsb) >> 3);
+	cmd = 0xC0;
+	spi_write_blocking(TOUCH_SPI_PORT, &cmd, 1);
+	spi_read_blocking(TOUCH_SPI_PORT, 0, &msb, 1);
+	spi_read_blocking(TOUCH_SPI_PORT, 0, &lsb, 1);
+	uint16_t z2 = ((((msb & 0x7ff) << 8) + lsb) >> 3);
+	if((z1 > 100) || (z2 < 3500)){
+		uint16_t xoffset = (3830-230)/240;
+		uint16_t yoffset = (3870-350)/320;
+		cmd = 0xD0;
+		spi_write_blocking(TOUCH_SPI_PORT, &cmd, 1);
+		spi_read_blocking(TOUCH_SPI_PORT, 0, &msb, 1);
+		spi_read_blocking(TOUCH_SPI_PORT, 0, &lsb, 1);
+		uint16_t xypos = ((((msb & 0x7ff) << 8) +lsb) >> 3);
+		if(xypos < 230) xypos = 230;
+		if(xypos > 3830) xypos = 3830;
+		Pos[0] = (xypos-230)/xoffset;
+		Pos[0] = 240 - Pos[0];
+		cmd = 0x90;
+		spi_write_blocking(TOUCH_SPI_PORT, &cmd, 1);
+		spi_read_blocking(TOUCH_SPI_PORT, 0, &msb, 1);
+		spi_read_blocking(TOUCH_SPI_PORT, 0, &lsb, 1);
+		uint16_t y = (((msb & 0x7ff) << 8) +lsb) >> 3;
+		if(y > 3870) y = 3870;
+		if(y < 350) y = 350;
+		Pos[1] = 320 - (3870 - (y))/yoffset;
+	}
+	touch_deselect();
+	return Pos;
 }

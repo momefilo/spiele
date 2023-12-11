@@ -5,7 +5,6 @@
 #include "../include/ranking.h"
 #include "graphics/blocks15x15.h"
 #include "tetris.h"
-#include "hardware/adc.h"
 #include <stdlib.h>
 
 //Variablen
@@ -38,13 +37,7 @@ void tetris_init(uint8_t progId){
 	Score = 0;
 	paint_Score(Score);
 	// Das Salz initialisieren
-	adc_init();
-	adc_select_input(0);
-	Salz = adc_read()*2;
-	sleep_us(1);
-	adc_select_input(1);
-	Salz = Salz + adc_read()+1;
-	srand(Salz);
+	Salz = get_Salz();
 	for(int i=0; i<7; i++){
 		Figuren[i].id = i;
 		Figuren[i].pos.x = 7;

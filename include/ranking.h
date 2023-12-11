@@ -1,4 +1,4 @@
-//momefilo Desing
+// momefilo Desing
 #ifndef momefilo_ranking_h
 #define momefilo_ranking_h 1
 
@@ -12,5 +12,6 @@ void paint_Menu();
 void paint_Score(uint32_t score);
 void paint_Rang(uint32_t rang);
 uint8_t set_Score(uint32_t score);
+int get_Salz();
 
 #endif

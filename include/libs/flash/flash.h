@@ -1,3 +1,4 @@
+// momefilo Desing
 #ifndef momefilo_flash_h
 #define momefilo_myflash_h 1
 
@@ -7,6 +8,9 @@
  * der Groesse 63
  * stage >=0; die Id des Sektors welcher benutzt wird*/
 void flash_init(uint8_t stage);
+
+void flash_salzInit();
+int flash_salzPlus();
 
 /* Schreibt data an Position id im uint32_t Array
  * id >= 0 && id <63: Position im uint32_t Array

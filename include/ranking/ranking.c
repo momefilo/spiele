@@ -8,6 +8,8 @@
 
 uint32_t Highscore[HIGHSCORECOUNT];
 
+int get_Salz(){return flash_salzPlus();}
+
 
 /* Prueft ob der score ein Highscore ist und gibt die Position dessen zurueck und
  * speicher den Highscore im Flash
@@ -15,8 +17,8 @@ uint32_t Highscore[HIGHSCORECOUNT];
  */
 uint8_t set_Score(uint32_t score){
 	for(int i=HIGHSCORECOUNT - 1; i>=0; i--){
-		if(score == Highscore[i]){ return HIGHSCORECOUNT - i;}
-		else if(score > Highscore[i]){
+//		if(score == Highscore[i]){ return HIGHSCORECOUNT - i;}
+		if(score > Highscore[i]){
 			for(int k=0; k<i; k++) Highscore[k] = Highscore[k + 1];
 			Highscore[i] = score;
 			flash_setDataRow(0, (HIGHSCORECOUNT - 1), Highscore);
@@ -51,6 +53,7 @@ void clear_Score(){
 
 void ranking_init(uint8_t progId){
 	flash_init(progId);
+	flash_salzInit();
 	uint32_t *highscore = flash_getData();
 	for(uint8_t i=0; i<HIGHSCORECOUNT; i++)Highscore[i] = highscore[i];
 

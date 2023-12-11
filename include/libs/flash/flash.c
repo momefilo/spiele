@@ -1,12 +1,65 @@
+// momefilo Desing
 #include "hardware/flash.h"
 #include "hardware/sync.h"
 #include "flash.h"
 
-
-uint32_t Flash_Offset;
-uint8_t *Flash_Content;
-uint8_t Pagecount;
+#include <stdio.h>
+int Salt;
+uint32_t Flash_Offset, Salz_Offset;
+uint8_t *Flash_Content, *Salz_Content, Salz_PageWerte[256];
+uint8_t Pagecount, SectorOffset = 202, Salz_Page, Salz_Byte;
 uint32_t Data[63];
+
+void flash_salzInit(){
+	Salz_Offset = (PICO_FLASH_SIZE_BYTES - SectorOffset * FLASH_SECTOR_SIZE);
+	Salz_Content = (uint8_t *) (XIP_BASE + Salz_Offset);
+	Salz_Page = 0;
+	Salz_Byte = 0;
+	bool found = false;
+//	flash_range_erase(Salz_Offset, FLASH_SECTOR_SIZE);
+	for(uint8_t myx=0; myx<16; myx++){
+		for(uint16_t myy=0; myy<256; myy++){
+			if(Salz_Content[(15-myx)*256 + 255-myy] != 0xFF){
+				for(uint16_t y=0; y<256; y++){
+					if(y<255-myy)Salz_PageWerte[y] = 1;
+					else if(y==255-myy)Salz_PageWerte[y] = Salz_Content[(15-myx)*256 + 255-myy];
+					else if(y>255-myy)Salz_PageWerte[y] = 0xFF;
+				}
+				Salz_Page = 15 - myx;
+				Salz_Byte = 255 - myy;
+				found = true;
+				break;
+			}
+		}
+		if(found) break;
+	}
+	if(! found) for(int i=0; i<256; i++)Salz_PageWerte[i]=0xFF;
+}
+int flash_salzPlus(){ //return;
+	uint32_t flags = save_and_disable_interrupts();
+	if(Salz_PageWerte[Salz_Byte]>1) Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
+	else if(Salz_Byte < 255){
+		Salz_Byte++;
+		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
+	}
+	else if(Salz_Page < 15){
+		Salz_Page++;
+		Salz_Byte = 0;
+		for(uint8_t y=0; y<255; y++) Salz_PageWerte[Salz_Byte] = 0xFF;
+		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
+	}
+	else{
+		flash_range_erase(Salz_Offset, FLASH_SECTOR_SIZE);
+		Salz_Page = 0;
+		Salz_Byte = 0;
+		for(uint8_t y=0; y<255; y++) Salz_PageWerte[Salz_Byte] = 0xFF;
+		Salz_PageWerte[Salz_Byte] = Salz_PageWerte[Salz_Byte] / 2;
+	}
+	flash_range_program(Salz_Offset + Salz_Page * FLASH_PAGE_SIZE, Salz_PageWerte, FLASH_PAGE_SIZE);
+	restore_interrupts(flags);
+	Salt = Salz_Page * 256*255 + Salz_Byte*255 + (0xFF - Salz_PageWerte[Salz_Byte]);
+	return Salt;
+}
 
 /* Pueft ob die letzte der 16 256Byte-Pages erreicht ist und loescht in diesem Falle den gesamten
  * 4096Byte-Sektor bevor die neue Page geschrieben wird*/
@@ -54,7 +107,7 @@ void get_Flash(){
  * stage gibt den zu lesen/schreibenden Sector an,
  * es können mehrere (von oben herab) verwaltet werden */
 void flash_init(uint8_t stage){
-	Flash_Offset = (PICO_FLASH_SIZE_BYTES - (stage + 1) * FLASH_SECTOR_SIZE);
+	Flash_Offset = (PICO_FLASH_SIZE_BYTES - (stage + 1 + SectorOffset) * FLASH_SECTOR_SIZE);
 	Flash_Content = (uint8_t *) (XIP_BASE + Flash_Offset);
 	for(uint8_t i=0; i<63; i++){ Data[i] = 0; }
 	bool found = false;

@@ -3,7 +3,6 @@ add_library(snake ${FILES})
 
 target_link_libraries(snake
 	pico_stdlib
-	hardware_adc
 	buttons
 	melodys
 	ranking

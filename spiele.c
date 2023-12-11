@@ -3,8 +3,10 @@
 #include "pico/stdlib.h"
 #include "include/buttons.h"
 #include "include/libs/ili9341/ili9341.h"
+#include "include/libs/flash/flash.h"
 #include "tetris/tetris.h"
 #include "snake/snake.h"
+#include "klotski/klotski.h"
 
 void paintEntry(){
 	uint16_t yend = 299;
@@ -65,7 +67,7 @@ int main(){
 			paintEntry();
 			showEntry = false;
 		}
-		if(gpio_get(BUTTON_U) || gpio_get(BUTTON_D)){
+		if(gpio_get(BUTTON_U) || gpio_get(BUTTON_D) || gpio_get(BUTTON_R)){
 			if(Menu_pressed){
 				showEntry = true;
 				if(gpio_get(BUTTON_U)){
@@ -99,6 +101,11 @@ int main(){
 						snake_input();
 
 					}
+					sleep_ms(500);
+				}
+				else if(gpio_get(BUTTON_R) && Menu_pressed){
+					Menu_pressed = false;
+					klotski_init(2);
 					sleep_ms(500);
 				}
 			}
