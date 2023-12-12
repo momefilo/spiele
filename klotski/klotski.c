@@ -7,7 +7,7 @@
 #include "hardware/sync.h"
 #include "klotski.h"
 #include <stdio.h>
-#define MAXLEVEL 9
+#define MAXLEVEL 8
 
 uint8_t *Levelnames[] = {"nur 18 Zuege","nur 28 Zuege","nur 38 Zuege","nur 48 Zuege","nur 58 Zuege",
 	"nur 68 Zuege","nur 78 Zuege","nur 88 Zuege","nur 98 Zuege"};
@@ -93,6 +93,7 @@ void init_Areas(){
 			Items[0][itemId - 1].klots_id = 0;
 		}
 	}
+
 	//area 1 Gaensebluemchen
 	i = 3;
 	for(uint8_t y=0; y<5; y++){
@@ -127,30 +128,33 @@ void init_Areas(){
 			i++;
 		}
 	}
-	Items[1][10].id = 11;
-	Items[1][10].x = 0;
-	Items[1][10].y = 4;
-	Items[1][10].w = 0;
-	Items[1][10].h = 0;
-	Items[1][10].klots_id = 0;
-	Items[1][11].id = 12;
-	Items[1][11].x = 3;
-	Items[1][11].y = 4;
-	Items[1][11].w = 0;
-	Items[1][11].h = 0;
-	Items[1][11].klots_id = 0;
-	Items[1][0].id = 1;
-	Items[1][0].x = 0;
-	Items[1][0].y = 0;
-	Items[1][0].w = 0;
-	Items[1][0].h = 1;
-	Items[1][0].klots_id = 2;
-	Items[1][1].id = 2;
-	Items[1][1].x = 3;
-	Items[1][1].y = 0;
-	Items[1][1].w = 0;
-	Items[1][1].h = 1;
-	Items[1][1].klots_id = 2;
+	if(1){
+		Items[1][10].id = 11;
+		Items[1][10].x = 0;
+		Items[1][10].y = 4;
+		Items[1][10].w = 0;
+		Items[1][10].h = 0;
+		Items[1][10].klots_id = 0;
+		Items[1][11].id = 12;
+		Items[1][11].x = 3;
+		Items[1][11].y = 4;
+		Items[1][11].w = 0;
+		Items[1][11].h = 0;
+		Items[1][11].klots_id = 0;
+		Items[1][0].id = 1;
+		Items[1][0].x = 0;
+		Items[1][0].y = 0;
+		Items[1][0].w = 0;
+		Items[1][0].h = 1;
+		Items[1][0].klots_id = 2;
+		Items[1][1].id = 2;
+		Items[1][1].x = 3;
+		Items[1][1].y = 0;
+		Items[1][1].w = 0;
+		Items[1][1].h = 1;
+		Items[1][1].klots_id = 2;
+	}
+
 	//area 2 Veilchen
 	i = 4;
 	for(uint8_t y=0; y<5; y++){
@@ -174,6 +178,51 @@ void init_Areas(){
 			GameArea4x5[2][2][y] = 0;
 		}
 	}
+	i = 4;
+	for(uint8_t y=2; y<4; y++){
+		for(uint8_t x=1; x<4; x++){
+			Items[2][i-1].id = i;
+			Items[2][i-1].x = x;
+			Items[2][i-1].y = y;
+			Items[2][i-1].w = 0;
+			Items[2][i-1].h = 0;
+			Items[2][i-1].klots_id = 0;
+			i++;
+		}
+	}
+	if(1){
+		Items[2][9].id = 10;
+		Items[2][9].x = 0;
+		Items[2][9].y = 4;
+		Items[2][9].w = 0;
+		Items[2][9].h = 0;
+		Items[2][9].klots_id = 0;
+		Items[2][10].id = 11;
+		Items[2][10].x = 3;
+		Items[2][10].y = 4;
+		Items[2][10].w = 0;
+		Items[2][10].h = 0;
+		Items[2][10].klots_id = 0;
+		Items[2][0].id = 1;
+		Items[2][0].x = 0;
+		Items[2][0].y = 0;
+		Items[2][0].w = 0;
+		Items[2][0].h = 1;
+		Items[2][0].klots_id = 2;
+		Items[2][1].id = 2;
+		Items[2][1].x = 3;
+		Items[2][1].y = 0;
+		Items[2][1].w = 0;
+		Items[2][1].h = 1;
+		Items[2][1].klots_id = 2;
+		Items[2][2].id = 3;
+		Items[2][2].x = 0;
+		Items[2][2].y = 2;
+		Items[2][2].w = 0;
+		Items[2][2].h = 1;
+		Items[2][2].klots_id = 2;
+	}
+
 	//area 3 Mohnblume
 	i = 4;
 	for(uint8_t y=0; y<5; y++){
@@ -193,15 +242,55 @@ void init_Areas(){
 		else if(y>2){
 			GameArea4x5[3][0][y] = i++;
 			GameArea4x5[3][3][y] = i++;
-			if(y<4){
-				GameArea4x5[3][1][y] = i++;
-				GameArea4x5[3][2][y] = i++;
-			}else{
-				GameArea4x5[3][1][y] = 0;
-				GameArea4x5[3][2][y] = 0;
-			}
 		}
 	}
+	GameArea4x5[3][1][3] = 10;
+	GameArea4x5[3][2][3] = 11;
+	i = 4;
+	for(uint8_t y=2; y<5; y++){
+		for(uint8_t x=0; x<4; x=x+3){
+			Items[3][i-1].id = i;
+			Items[3][i-1].x = x;
+			Items[3][i-1].y = y;
+			Items[3][i-1].w = 0;
+			Items[3][i-1].h = 0;
+			Items[3][i-1].klots_id = 0;
+			i++;
+		}
+	}
+	if(1){
+		Items[3][9].id = 10;
+		Items[3][9].x = 1;
+		Items[3][9].y = 3;
+		Items[3][9].w = 0;
+		Items[3][9].h = 0;
+		Items[3][9].klots_id = 0;
+		Items[3][10].id = 11;
+		Items[3][10].x = 2;
+		Items[3][10].y = 3;
+		Items[3][10].w = 0;
+		Items[3][10].h = 0;
+		Items[3][10].klots_id = 0;
+		Items[3][0].id = 1;
+		Items[3][0].x = 0;
+		Items[3][0].y = 0;
+		Items[3][0].w = 0;
+		Items[3][0].h = 1;
+		Items[3][0].klots_id = 2;
+		Items[3][1].id = 2;
+		Items[3][1].x = 3;
+		Items[3][1].y = 0;
+		Items[3][1].w = 0;
+		Items[3][1].h = 1;
+		Items[3][1].klots_id = 2;
+		Items[3][2].id = 3;
+		Items[3][2].x = 1;
+		Items[3][2].y = 2;
+		Items[3][2].w = 1;
+		Items[3][2].h = 0;
+		Items[3][2].klots_id = 4;
+	}
+
 	for(uint m=0; m<MAXLEVEL; m++){
 		Items[m][14].id = 15;
 		Items[m][14].x = 1;
@@ -226,7 +315,7 @@ void paintItem(uint8_t itemId, uint8_t selected){
 	uint16_t x = Items[Level][itemId].x * 50 + 20, y = Items[Level][itemId].y * 50 + 25;
 	uint16_t w = Items[Level][itemId].w * 50, h = Items[Level][itemId].h * 50;
 	uint16_t area[] = { x, y, x + 50 + w - 1, y + 50 + h - 1};
-	uint8_t klotsid = Items[Level][itemId].klots_id + selected;
+	uint8_t klotsid = Items[Level][itemId].klots_id + 1 - selected;
 //	uint32_t flags = save_and_disable_interrupts();
 	switch(klotsid){
 		case 0: drawRect(area,getKlots(0)); break;
@@ -310,19 +399,37 @@ void paintMovecount(){
 }
 
 bool paintMenu(){
-	setBgColor(0x07E0);
-	setFgColor(0x0007);
+	setBgColor(0x841F);
+	setFgColor(0x8010);
 	clearScreen();
 	uint16_t y = 320 / (MAXLEVEL + 1);
-	uint16_t x = 20 ;
+	uint16_t x = 26 ;
 	for(uint16_t i=1; i<=MAXLEVEL; i++){
 		uint16_t pos[] = {x, i*y-y/2};
 		writeText16x16(pos, Levelnames[i-1], 12, false, false);
+		if(i<MAXLEVEL){
+			uint16_t area[] = {19, i*y-y/2+24, 109, i*y-y/2+26};
+			paintRectGradient(area, 0x001F, 0xFFFF);
+			uint16_t area1[] = {110, i*y-y/2+24, 220, i*y-y/2+26};
+			paintRectGradient(area1, 0xFFFF, 0x001F);
+		}
 	}
-	uint16_t pos[] = {70, 300};
-	setBgColor(0x0007);
-	setFgColor(0x07E0);
-	writeText16x16(pos, "Zurueck", 7, false, false);
+	//new
+	uint16_t yend = 319;
+	uint16_t pos[] = {0, 0, 18, yend};
+	paintRectGradient(pos, 0x0000, 0x001F);
+	pos[0] = 221; pos[2] = 239;
+	paintRectGradient(pos, 0x001F, 0x0000);
+
+	pos[0] = 19; pos [1] = 0, pos[2] = 221; pos [3] = 5,
+	paintRect(pos, 0x001B);
+	pos[0] = 19; pos [1] = 294, pos[2] = 221; pos [3] = yend,
+	paintRect(pos, 0x001B);
+	//endnew
+	uint16_t npos[] = {15, 300};
+	setFgColor(0x841F);
+	setBgColor(0x001B);
+	writeText16x16(npos, "touch Zurueck", 13, false, false);
 	while(1){
 		uint16_t *pixPoint = ili9341_getTouch();
 		while(pixPoint[0]<0xFFFF){
@@ -336,7 +443,7 @@ bool paintMenu(){
 //					sleep_ms(200);
 					return true;
 				}
-				else if(pixPoint[0]>50 && pixPoint[0]<170 && pixPoint[1]>300 && pixPoint[1]<319) return false;
+				else if(pixPoint[0]>50 && pixPoint[0]<170 && pixPoint[1]>290 && pixPoint[1]<319) return false;
 			}
 		}
 
@@ -366,19 +473,19 @@ bool moveItem(uint8_t itemId, int8_t *posDiff){
 		if(klotsId < 2){
 			uint16_t area[4];
 			area[0] = xn; area[1] = yn; area[2] = xn+49; area[3] = yn + 49;
-			drawRect(area,getKlots(klotsId+1));
+			drawRect(area,getKlots(klotsId));
 			sleep_ms(4);
 		}
 		else if(klotsId < 4){
 			uint16_t area[4];
 			area[0] = xn; area[1] = yn; area[2] = xn+49; area[3] = yn + 99;
-			drawRect(area,getKlots(klotsId+1));
+			drawRect(area,getKlots(klotsId));
 			sleep_ms(2);
 		}
 		else if(klotsId < 6){
 			uint16_t area[4];
 			area[0] = xn; area[1] = yn; area[2] = xn+99; area[3] = yn + 49;
-			drawRect(area,getKlots(klotsId+1));
+			drawRect(area,getKlots(klotsId));
 		}
 		else {
 			uint16_t area[] = {xn + 98, yn, xn + 99, yn + 99};
@@ -386,7 +493,7 @@ bool moveItem(uint8_t itemId, int8_t *posDiff){
 				area[0] = xn; area[1] = yn+98; area[2] = xn+99; area[3] = yn + 99;}
 			paintRect(area, 0x8410);
 			area[0] = xn; area[1] = yn; area[2] = xn+99; area[3] = yn + 99;
-			drawRect(area,getKlots(klotsId+1));
+			drawRect(area,getKlots(klotsId));
 		}
 	}
 	//change Item
@@ -459,7 +566,7 @@ bool play(){
 						LastPos[1] = 255;
 					}
 				}
-				else deselectItem(itemId-1);
+				deselectItem(itemId-1);
 				paintMovecount();
 				if(Items[Level][14].x == 1 && Items[Level][14].y == 3) return true;
 			}
@@ -475,7 +582,7 @@ void win(){
 	printf("Rang: %d\n", rang);
 	paint_Highscore(true);
 	paint_Rang(rang);
-	uint16_t pos[] = {17, 300};
+	uint16_t pos[] = {14, 300};
 	setBgColor(0xFFF0);
 	setFgColor(0x0007);
 	writeText16x16(pos, "touch Zurueck", 13, false, false);
@@ -483,7 +590,7 @@ void win(){
 		uint16_t *pixPoint = ili9341_getTouch();
 		while(pixPoint[0]<0xFFFF){
 			pixPoint = ili9341_getTouch();
-			if(pixPoint[0]>50 && pixPoint[0]<170 && pixPoint[1]>300 && pixPoint[1]<319){
+			if(pixPoint[0]>50 && pixPoint[0]<170 && pixPoint[1]>290 && pixPoint[1]<319){
 				sleep_ms(250);
 				return;
 			}
@@ -512,7 +619,9 @@ void klotski_init(uint8_t progId){
 		uint16_t area[] = {0, 0, 239, 319};
 		paintRect(area, 0x8410);
 		for(int i=0; i<15;i++){
-			if(Level<1 || i<12 || i>13) paintItem(i,0);
+			if(Level<1)paintItem(i,0);
+			else if(Level<2 && (i<12 || i>13) )paintItem(i,0);
+			else if(Level<4 && (i<11 || i>13) )paintItem(i,0);
 		}
 		paintBorder();
 		paintMovecount();

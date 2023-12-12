@@ -38,14 +38,6 @@ void paintEntry(){
 	paintRectGradient(pos, 0x001F, 0xF81F);
 	pos[0] = 175; pos[2] = 202;
 	paintRectGradient(pos, 0xF81F, 0xF800);
-	pos[0] = 27; pos [1] = 7, pos[2] = 213; pos [3] = 7;
-	paintRect(pos, 0xFFE0);
-	pos[0] = 213; pos [1] = 7, pos[2] = 213; pos [3] = 292;
-	paintRect(pos, 0xFFE0);
-	pos[0] = 27; pos [1] = 292, pos[2] = 213; pos [3] = 292;
-	paintRect(pos, 0xFFE0);
-	pos[0] = 27; pos [1] = 7, pos[2] = 27; pos [3] = 292;
-	paintRect(pos, 0xFFE0);
 	tpos[0] = 72; tpos[1] = 180;
 	setFgColor(0x07E0);
 	writeText16x16(tpos, "Tetris", 6, false, false);
