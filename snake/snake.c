@@ -68,7 +68,7 @@ void snake_init(uint8_t progId){
 	melodys_init();
 	ranking_init(progId);
 	Tail = (struct POS*)malloc(sizeof(struct POS));
-	Snake_Salz = get_Salz();;
+	Snake_Salz = get_Salz();
 }
 void snake_reset(){
 	for(int x=0; x<16; x++){

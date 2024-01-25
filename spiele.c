@@ -67,10 +67,10 @@ int main(){
 					tetris_init(0);
 					while(true){
 						uint16_t speed = get_Fallspeed();
-						uint8_t loop = speed/100;
+						uint16_t loop = speed/10;
 						for(int i=loop; i<speed; i=i+loop){
 							if(get_Direction() > 1) break;
-							sleep_us(loop*1000);
+							sleep_us(loop*750);
 						}
 						if(! fall_ActFigur()){
 							if(! end_fall(true)){

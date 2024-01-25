@@ -58,6 +58,7 @@ uint8_t NewPoint[2];
 int8_t GameArea4x5[MAXLEVEL][4][5];
 uint16_t MoveCount;
 uint8_t LastItem, LastPos[2];
+
 void init_Areas(){
 	//area 0 nur 18 Zuege
 	uint8_t i = 1;
@@ -310,7 +311,6 @@ void init_Areas(){
 //		printf("%d, %d, %d, %d, %d\n",Items[0][i].id,Items[0][i].x,Items[0][i].y,Items[0][i].w,Items[0][i].h);
 	}
 }
-
 void paintItem(uint8_t itemId, uint8_t selected){
 	uint16_t x = Items[Level][itemId].x * 50 + 20, y = Items[Level][itemId].y * 50 + 25;
 	uint16_t w = Items[Level][itemId].w * 50, h = Items[Level][itemId].h * 50;
@@ -397,7 +397,6 @@ void paintMovecount(){
 		writeText16x16(pos, text, 9, false, false);
 	}
 }
-
 bool paintMenu(){
 	setBgColor(0x841F);
 	setFgColor(0x8010);

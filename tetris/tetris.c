@@ -280,8 +280,8 @@ bool new_ActFigur(){
 	bool randIsOk = false;
 	uint8_t newId;
 	while(! randIsOk){
-		int r = rand();
-		newId = (r/1)%7;
+		int r = rand_r(&Salz);
+		newId = (r/2)%7;
 		if(newId == LastFigurId){
 			if(! IsBeforeLastFigure){
 				IsBeforeLastFigure = true;
@@ -564,9 +564,12 @@ bool new_Game(){
 }
 
 void inkrase_Fallspeed(){
-	if(Fallspeed < 100) Fallspeed--;
-	else if(Fallspeed < 360){ Fallspeed = Fallspeed - 5; }
-	else {Fallspeed = Fallspeed - 10; }
+	if(Fallspeed < 50) Fallspeed--;
+	else if(Fallspeed < 120) Fallspeed = Fallspeed - 2;
+	else if(Fallspeed < 300) Fallspeed = Fallspeed - 15;
+	else if(Fallspeed < 360){ Fallspeed = Fallspeed - 20; }
+	else {Fallspeed = Fallspeed - 20; }
+	if( Fallspeed < 10) Fallspeed = 10;
 }
 
 bool end_fall(bool newGame){
