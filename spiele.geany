@@ -47,11 +47,11 @@ base_path=/home/momefilo/pico/projekte/remote/spiele
 
 [files]
 current_page=0
-FILE_NAME_0=2251;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fspiele.c;0;4
-FILE_NAME_1=10911;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fklotski%2Fklotski.c;0;4
-FILE_NAME_2=14742;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Ftetris%2Ftetris.c;0;4
-FILE_NAME_3=1184;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fsnake%2Fsnake.c;0;4
-FILE_NAME_4=0;None;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2F.gitignore;0;4
+FILE_NAME_0=297;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fspiele.c;0;4
+FILE_NAME_1=386;C++;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fklotski%2Fklotski.h;0;4
+FILE_NAME_2=275;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Fklotski%2Fklotski.c;0;4
+FILE_NAME_3=0;C++;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2Finclude%2Flibs%2Fili9341%2Fili9341.h;0;4
+FILE_NAME_4=0;CMake;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fspiele%2FCMakeLists.txt;0;4
 
 [VTE]
 last_dir=/home/momefilo

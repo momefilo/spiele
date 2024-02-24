@@ -9,6 +9,9 @@
 #include <stdio.h>
 #define MAXLEVEL 8
 
+uint8_t *getEntry(){
+	return (uint8_t *)(XIP_BASE + 256 * 1024);
+}
 uint8_t *Levelnames[] = {"nur 18 Zuege","nur 28 Zuege","nur 38 Zuege","nur 48 Zuege","nur 58 Zuege",
 	"nur 68 Zuege","nur 78 Zuege","nur 88 Zuege","nur 98 Zuege"};
 uint32_t Klotz_FlashOffset, KlotskiScore[MAXLEVEL][5];

@@ -12,7 +12,8 @@
 #define KLOTS_5_LEN  (100*50*2+1)
 #define KLOTS_6_LEN  (100*100*2+1)
 #define KLOTS_7_LEN  (100*100*2+1)
-
+#define ENTRY_LEN (320*240*2+1)
 void klotski_init(uint8_t progId);
+uint8_t *getEntry();
 
 #endif

@@ -3,13 +3,14 @@
 #include "pico/stdlib.h"
 #include "include/buttons.h"
 #include "include/libs/ili9341/ili9341.h"
-//#include "include/libs/flash/flash.h"
 #include "tetris/tetris.h"
 #include "snake/snake.h"
 #include "klotski/klotski.h"
 
 void paintEntry(){
-	uint16_t yend = 299;
+	uint16_t area[] = {0,0,239,319};
+	drawRect(area, getEntry());
+/*	uint16_t yend = 299;
 	uint16_t pos[] = {0, 0, 24, yend};
 	paintRectGradient(pos, 0x0000, 0x001F);
 	pos[0] = 25; pos[2] = 214;
@@ -43,7 +44,7 @@ void paintEntry(){
 	writeText16x16(tpos, "Tetris", 6, false, false);
 	tpos[0] = 80; tpos[1] = 220;
 	setFgColor(0xFFE0);
-	writeText16x16(tpos, "Snake", 5, false, false);
+	writeText16x16(tpos, "Snake", 5, false, false);*/
 }
 
 int main(){
