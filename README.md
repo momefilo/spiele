@@ -1,11 +1,7 @@
 # spiele\
+\![plan](https://github.com/momefilo/spiele/assets/106985138/4dd519e5-7a16-4187-b53d-0a67e48bf4a7)
 
-\![plan](https://github.com/momefilo/spiele/assets/106985138/b978ef56-136b-41f7-9567-b7b82bf22d3c)
-\![IMG_20240224_152710_HDR](https://github.com/momefilo/spiele/assets/106985138/7a2d6fe8-1b43-4b3c-8723-8d83b51fd97c)
-\\![Uploading IMG_20240224_152922_HDR.jpg…]()
-
-\![Uploading IMG_20240224_153044_HDR.jpg…]()
-\![Uploading IMG_20240224_153110_HDR.jpg…]()
+\![IMG_20240224_152838_HDR](https://github.com/momefilo/spiele/assets/106985138/540b0601-ce5b-4ee6-b251-288765e06c47)
 
 Tetris, Klotski und Snake für ili9341, passiv-Buzzer und vier Tastern\
 auf../libs aufbauend\
